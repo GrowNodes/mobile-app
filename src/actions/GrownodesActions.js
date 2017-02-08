@@ -28,23 +28,23 @@ export const GROWNODES_FETCH_SUCCESS = 'fetching list of grownodes success'
 // }
 
 
-export const grownodesFetch = () => {
-  const { currentUser } = Base.auth()
-  console.log(currentUser)
-
-
+export function grownodesFetch() {
   return (dispatch) => {
     dispatch({ type: GROWNODES_FETCHING })
 
-    Base.database().ref('/grow_nodes')
-    .orderByChild('owner_uid')
-    .equalTo(Base.auth().currentUser.uid)
-    .on('value', (snapshot) => {
-      dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
+    return Base.fetch('grow_nodes', {
+      context: {},
+      asArray: false,
+      queries: {
+        orderByChild: 'owner_uid',
+        equalTo: Base.auth().currentUser.uid,
+      },
+    }).then((data) => {
+      console.log(data)
+      dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: data })
+    }).catch((error) => {
+      console.log(error)
+      dispatch({ type: GROWNODES_FETCH_FAIL, payload: error })
     })
-    // .catch((error) => {
-    //   console.log(error)
-    //   dispatch({ type: GROWNODES_FETCH_FAIL, error })
-    // })
   }
 }

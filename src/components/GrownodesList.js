@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { grownodesFetch } from '../actions'
+import { fetchGrownodesAndConnectToMqtt } from '../actions'
 import GrownodesListItem from './GrownodesListItem'
 
-class EmployeeList extends Component {
+class GrownodesList extends Component {
 
   componentWillMount() {
-    this.props.grownodesFetch()
+    this.props.fetchGrownodesAndConnectToMqtt()
 
     this.createDataSource(this.props)
   }
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => {
   return { grownodes }
 }
 
-export default connect(mapStateToProps, { grownodesFetch })(EmployeeList)
+export default connect(mapStateToProps, { fetchGrownodesAndConnectToMqtt })(GrownodesList)
