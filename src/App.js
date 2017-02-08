@@ -10,6 +10,7 @@ import Router from './Router'
 class App extends Component {
 
   componentWillMount() {
+    console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
   }
 
 
