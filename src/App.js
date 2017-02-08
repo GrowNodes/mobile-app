@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
-
 import Router from './Router'
-import { Base } from './utils'
-
 
 import Store from './Store'
 
@@ -17,6 +14,14 @@ class App extends Component {
   }
 
   componentWillMount() {
+    /* eslint-disable
+    Use these lines to wipe the stored redux state on boot */
+
+    // persistStore(Store, {blacklist: ['mqtt'],storage: AsyncStorage,}).purge()
+    // Base.unauth()
+
+    /* eslint-enable */
+
     persistStore(Store, {
       blacklist: ['mqtt'],
       storage: AsyncStorage,
@@ -24,13 +29,6 @@ class App extends Component {
       // Finished hydrating store
       this.setState({ rehydrated: true })
     })
-    // Listen for firebase auth and kick the user if not valid
-    Base.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        console.info('call logout action here')
-      }
-    })
-
 
     console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
   }

@@ -4,6 +4,7 @@ import {
   LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILED,
+  LOGOUT_USER,
 } from '../actions'
 
 const initialState = {
@@ -16,6 +17,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case LOGOUT_USER:
+      return initialState
     case EMAIL_SET_STATE:
       return { ...state, email: action.payload }
     case PASSWORD_SET_STATE:

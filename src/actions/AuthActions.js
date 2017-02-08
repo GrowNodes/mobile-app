@@ -6,6 +6,7 @@ export const PASSWORD_SET_STATE = 'pw_changed'
 export const LOGIN_USER_START = 'starting to login user'
 export const LOGIN_USER_SUCCESS = 'login user success'
 export const LOGIN_USER_FAILED = 'login user failed'
+export const LOGOUT_USER = 'logout user'
 
 export const emailSetState = (text) => {
   return {
@@ -30,9 +31,14 @@ export const loginUserWithCreds = ({ email, password }) => {
       if (error) {
         dispatch({ type: LOGIN_USER_FAILED, payload: error.message })
       } else {
-        Actions.main({ type: 'reset' })
         dispatch({ type: LOGIN_USER_SUCCESS, payload: user })
+        Actions.main({ type: 'reset' })
       }
     })
   }
+}
+
+export const logoutUser = () => {
+  // Actions.auth({ type: 'reset' })
+  return { type: LOGOUT_USER }
 }

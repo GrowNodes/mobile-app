@@ -1,12 +1,27 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Scene, Router, Actions } from 'react-native-router-flux'
 import Store from './Store'
 import LoginForm from './components/LoginForm'
 import GrownodesList from './components/GrownodesList'
 import EmployeeCreate from './components/EmployeeCreate'
 import GrownodeEdit from './components/GrownodeEdit'
+import { logoutUser } from './actions'
+import { Base } from './utils'
+
 
 class RouterComponent extends Component {
+  componentWillMount() {
+    // Listen for firebase auth and kick the user if not valid
+    Base.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        console.info("logout user here")
+        // this.props.logoutUser()
+      }
+    })
+  }
+
+
   renderRouter() {
     // We are optimistically assuming any persisted user is valid
     // and setting the initial scene to "main".
@@ -17,7 +32,7 @@ class RouterComponent extends Component {
     return (
       <Router sceneStyle={{ paddingTop: 65 }}>
         <Scene key="auth" >
-          <Scene key="login" component={LoginForm} title="Please Login" />
+          <Scene key="login" component={LoginForm} title="Please Login" direction="vertical" />
         </Scene>
 
         {/* set initial to true if user exists */}
@@ -52,4 +67,4 @@ class RouterComponent extends Component {
   }
 }
 
-export default RouterComponent
+export default connect(null, { logoutUser })(RouterComponent)
