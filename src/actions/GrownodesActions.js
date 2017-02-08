@@ -29,7 +29,7 @@ export const GROWNODES_FETCH_SUCCESS = 'fetching list of grownodes success'
 
 
 export function grownodesFetch() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({ type: GROWNODES_FETCHING })
 
     return Base.fetch('grow_nodes', {
@@ -37,7 +37,7 @@ export function grownodesFetch() {
       asArray: false,
       queries: {
         orderByChild: 'owner_uid',
-        equalTo: Base.auth().currentUser.uid,
+        equalTo: getState().auth.user.uid,
       },
     }).then((data) => {
       console.log(data)

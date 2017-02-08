@@ -9,7 +9,7 @@ import {
 const initialState = {
   email: 'example@mail.com',
   password: '123123123',
-  user: null,
+  user: null, // eventually will use this to store other user attributes too
   error: '',
   loading: false,
 }

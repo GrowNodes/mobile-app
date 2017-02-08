@@ -22,13 +22,6 @@ export const passwordSetState = (password) => {
   }
 }
 
-
-export const setLoginSuccess = (user) => {
-  Actions.main({ type: 'reset' })
-  return { type: LOGIN_USER_SUCCESS, payload: user }
-}
-
-
 export const loginUserWithCreds = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER_START })
@@ -37,7 +30,8 @@ export const loginUserWithCreds = ({ email, password }) => {
       if (error) {
         dispatch({ type: LOGIN_USER_FAILED, payload: error.message })
       } else {
-        dispatch(setLoginSuccess(user))
+        Actions.main({ type: 'reset' })
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: user })
       }
     })
   }
