@@ -7,15 +7,26 @@ import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers'
 import Router from './Router'
 
+import { Base } from './utils'
+import { setLoginSuccess } from './actions'
+
+const store = createStore(rootReducer, devToolsEnhancer(), applyMiddleware(ReduxThunk))
+
 class App extends Component {
 
   componentWillMount() {
     console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
+
+    // Listen for auth
+    Base.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.dispatch(setLoginSuccess(user))
+      }
+    })
   }
 
 
   render() {
-    const store = createStore(rootReducer, devToolsEnhancer(), applyMiddleware(ReduxThunk))
     return (
       <Provider store={store}>
         <Router />

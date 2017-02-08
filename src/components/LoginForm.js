@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text } from 'react-native'
-import { emailSetState, passwordSetState, loginUser } from '../actions'
+import { emailSetState, passwordSetState, loginUserWithCreds } from '../actions'
 import { Card, CardSection, Input, Button, Spinner } from './common'
 
 class LoginForm extends Component {
@@ -16,7 +16,7 @@ class LoginForm extends Component {
   onButtonPress() {
     const { email, password } = this.props
 
-    this.props.loginUser({ email, password })
+    this.props.loginUserWithCreds({ email, password })
   }
 
   renderButton() {
@@ -75,4 +75,4 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { emailSetState, passwordSetState, loginUser })(LoginForm)
+  { emailSetState, passwordSetState, loginUserWithCreds })(LoginForm)
