@@ -1,0 +1,3 @@
+rootProject.name = 'grownodes'
+
+include ':app'

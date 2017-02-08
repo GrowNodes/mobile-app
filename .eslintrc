@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+   "rules": {
+        "semi": ["error", "never"],
+        "arrow-body-style": 0,
+        "react/jsx-no-bind": 0,
+        "react/prop-types": 0,
+        "react/jsx-filename-extension": 0
+    }
+}
