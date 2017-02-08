@@ -14,13 +14,11 @@ export function mqttDisconnect() {
 }
 
 export function mqttSubscribe(topics) {
-  console.log('topics', topics)
   topics.forEach((topic) => {
     Mqtt.subscribe(topic)
   })
 
   return { type: MQTT_SUBSCRIBED, payload: topics }
-
 }
 
 export function mqttSend(topic, body) {
@@ -52,7 +50,6 @@ export function mqttConnect() {
       }
 
       Mqtt.onMessageArrived = (pahoMessage) => {
-        console.log('recieved', pahoMessage)
         // destructure
         const {
           destinationName,

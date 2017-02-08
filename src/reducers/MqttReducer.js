@@ -23,7 +23,6 @@ export default (state = initialState, action) => {
     case MQTT_SENT:
       return { ...state, last_sent_message: action.payload }
     case MQTT_RECEIVED:
-    console.log(action.payload)
       return { ...state, last_received_message: action.payload }
     case MQTT_SUBSCRIBED:
       return { ...state, subscriptions: action.payload }

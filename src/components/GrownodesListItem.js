@@ -10,7 +10,6 @@ class GrownodesListItem extends Component {
   }
 
   render() {
-    console.log(this.props.grownode)
     const { serial } = this.props.grownode
 
     return (
