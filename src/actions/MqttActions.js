@@ -4,6 +4,7 @@ export const MQTT_CONNECTED = 'MQTT_CONNECTED'
 export const MQTT_DISCONNECTED = 'MQTT_DISCONNECTED'
 export const MQTT_SENT = 'MQTT_SENT'
 export const MQTT_RECEIVED = 'MQTT_RECEIVED'
+export const MQTT_SUBSCRIBED = 'MQTT_SUBSCRIBED'
 
 export function mqttDisconnect() {
   Mqtt.disconnect()
@@ -13,10 +14,13 @@ export function mqttDisconnect() {
 }
 
 export function mqttSubscribe(topics) {
-  console.log(topics)
-  // topics.forEach((topic) => {
-  //   Mqtt.subscribe(topic)
-  // })
+  console.log('topics', topics)
+  topics.forEach((topic) => {
+    Mqtt.subscribe(topic)
+  })
+
+  return { type: MQTT_SUBSCRIBED, payload: topics }
+
 }
 
 export function mqttSend(topic, body) {

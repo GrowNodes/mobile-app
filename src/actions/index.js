@@ -7,11 +7,10 @@ export * from './MqttActions'
 
 
 export function fetchGrownodesAndConnectToMqtt() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     return dispatch(grownodesFetch()).then(() => {
       return dispatch(mqttConnect()).then(() => {
-        // return dispatch(mqttSubscribe(['woppa?']))
-        console.log("oh")
+        return dispatch(mqttSubscribe(Object.keys(getState().grownodes)))
       })
     })
   }
