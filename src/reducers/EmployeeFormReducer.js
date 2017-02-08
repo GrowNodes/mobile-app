@@ -1,10 +1,10 @@
-// import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from '../actions/EmployeeActions';
+// import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE } from '../actions/EmployeeActions'
 //
 // const initialState = {
 //     name: '',
 //     phone: '',
 //     shift: ''
-// };
+// }
 //
 // export default (state = initialState, action) => {
 //     switch (action.type) {
@@ -13,10 +13,10 @@
 //             return {
 //                 ...state,
 //                 [action.payload.prop]: action.payload.value // ES6 object key interpolation
-//             };
+//             }
 //         case EMPLOYEE_CREATE:
-//             return initialState;
+//             return initialState
 //         default:
-//             return state;
+//             return state
 //     }
-// };
+// }

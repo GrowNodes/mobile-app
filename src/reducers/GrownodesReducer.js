@@ -14,30 +14,30 @@ export default (state = initialState, action) => {
 
 //
 //
-// import * as TYPES from '../actions/types';
+// import * as TYPES from '../actions/types'
 //
-// const INITIAL_STATE = {};
+// const INITIAL_STATE = {}
 //
 //
 //
 // export default function(state = INITIAL_STATE, action) {
 //     switch(action.type) {
 //         default:
-//             return state;
+//             return state
 //         case TYPES.USER_NODES_FETCHED:
 //             return action.data
 //
 //         case TYPES.MQTT_CONNECT:
-//         console.log("mqtt connect dispatch");
+//         console.log("mqtt connect dispatch")
 //         var newState = {...state}
-//         for (var i = action.payload.length - 1; i >= 0; i--) {
+//         for (var i = action.payload.length - 1 i >= 0 i--) {
 //             newState[action.payload[i]] = {}
 //         }
-//         return newState;
+//         return newState
 //
 //
 //         case TYPES.MQTT_DISCONNECT:
-//         return INITIAL_STATE;
+//         return INITIAL_STATE
 //
 //         // Topic matching action names
 //         case "$homie":

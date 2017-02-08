@@ -68,7 +68,7 @@ const styles = {
   },
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { email, password, error, loading } = state.auth
 
   return { email, password, error, loading }

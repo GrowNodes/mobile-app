@@ -1,4 +1,4 @@
-// import Moment from 'moment';
+// import Moment from 'moment'
 //
 // export const formatNodeSettings = (cylce_obj) => {
 //     var obj_to_push = _.cloneDeep(cylce_obj)

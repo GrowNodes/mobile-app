@@ -24,7 +24,6 @@ class App extends Component {
       // Finished hydrating store
       this.setState({ rehydrated: true })
     })
-
     // Listen for firebase auth and kick the user if not valid
     Base.auth().onAuthStateChanged((user) => {
       if (!user) {
