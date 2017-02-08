@@ -52,9 +52,20 @@ export function mqttConnect() {
       }
 
       Mqtt.onMessageArrived = (pahoMessage) => {
+        console.log('recieved', pahoMessage)
+        // destructure
+        const {
+          destinationName,
+          duplicate,
+          payloadBytes,
+          payloadString,
+          qos,
+          retained,
+        } = pahoMessage
+
         dispatch({
           type: MQTT_RECEIVED,
-          payload: pahoMessage,
+          payload: { destinationName, duplicate, payloadBytes, payloadString, qos, retained },
         })
       }
 
