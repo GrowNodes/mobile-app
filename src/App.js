@@ -4,8 +4,7 @@ import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 import createFilter from 'redux-persist-transform-filter'
-import Router from './Router'
-
+import RouterComponent from './Router'
 import Store from './Store'
 
 class App extends Component {
@@ -43,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={Store}>
-        <Router render={this.state.render} />
+        <RouterComponent render={this.state.render} />
       </Provider>
     )
   }

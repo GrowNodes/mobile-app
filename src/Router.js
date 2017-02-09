@@ -9,6 +9,8 @@ import GrownodeEdit from './components/GrownodeEdit'
 import { logoutUser } from './actions'
 import { Base } from './utils'
 
+const RouterWithRedux = connect()(Router)
+
 class RouterComponent extends Component {
   componentWillMount() {
     // Listen for firebase auth and kick the user if not valid
@@ -59,7 +61,7 @@ class RouterComponent extends Component {
 
   render() {
     if (this.props.render) {
-      return <Router scenes={this.createScenes()} sceneStyle={{ paddingTop: 65 }} />
+      return <RouterWithRedux scenes={this.createScenes()} sceneStyle={{ paddingTop: 65 }} />
     }
     return null
   }
