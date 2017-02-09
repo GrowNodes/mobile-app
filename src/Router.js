@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Navigator } from 'react-native'
 import { connect } from 'react-redux'
 import { Scene, Router, Actions } from 'react-native-router-flux'
 import Store from './Store'
@@ -12,6 +13,30 @@ import HomeScreen from './screens/HomeScreen'
 import TabIcon from './components/TabIcon'
 
 const RouterWithRedux = connect()(Router)
+
+
+const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
+  const style = {
+    // flex: 1,
+    // backgroundColor: '#fff',
+    // shadowColor: null,
+    // shadowOffset: null,
+    // shadowOpacity: null,
+    // shadowRadius: null,
+  }
+
+  // Fix navbar overlap see
+  // https://github.com/aksonov/react-native-router-flux/issues/103#issuecomment-218375308
+  // https://github.com/aksonov/react-native-router-flux/issues/836#issuecomment-227142091
+  if (computedProps.isActive) {
+    style.marginTop = computedProps.hideNavBar ?
+    0 : Navigator.NavigationBar.Styles.General.TotalNavHeight
+
+    // style.marginBottom = computedProps.hideTabBar ? 0 : 50
+  }
+  return style
+}
+
 
 class RouterComponent extends Component {
   componentWillMount() {
@@ -38,7 +63,7 @@ class RouterComponent extends Component {
         </Scene>
 
         {/* set initial to true if user exists */}
-        <Scene key="main" initial={this.props.user} tabs >
+        <Scene key="main" initial={this.props.user} tabs>
           <Scene key="home" title="Home" component={HomeScreen} icon={TabIcon} />
           <Scene
             key="employeeList"
@@ -67,7 +92,7 @@ class RouterComponent extends Component {
 
   render() {
     if (this.props.render) {
-      return <RouterWithRedux scenes={this.createScenes()} />
+      return <RouterWithRedux scenes={this.createScenes()} getSceneStyle={getSceneStyle} />
     }
     return null
   }
