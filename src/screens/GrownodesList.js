@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ListView } from 'react-native'
 import { connect } from 'react-redux'
+import { Container, Content, List, ListItem, Text } from 'native-base'
 import _ from 'lodash'
 import { fetchGrownodesAndConnectToMqtt } from '../actions'
 import GrownodesListItem from '../components/GrownodesListItem'
@@ -9,33 +10,22 @@ class GrownodesList extends Component {
 
   componentWillMount() {
     this.props.fetchGrownodesAndConnectToMqtt()
-
-    this.createDataSource(this.props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps)
-  }
-
-  createDataSource({ grownodes }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    })
-
-    this.dataSource = ds.cloneWithRows(grownodes)
-  }
-
-  renderRow(grownode) {
-    return <GrownodesListItem grownode={grownode} />
   }
 
   render() {
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <Container>
+        <Content>
+          <List
+            dataArray={this.props.grownodes}
+            renderRow={grownode =>
+              <ListItem>
+                <Text>{grownode.id}</Text>
+              </ListItem>
+            }
+          />
+        </Content>
+      </Container>
     )
   }
 }
