@@ -8,7 +8,8 @@ import EmployeeCreate from './components/EmployeeCreate'
 import GrownodeEdit from './components/GrownodeEdit'
 import { logoutUser } from './actions'
 import { Base } from './utils'
-
+import Dashboard from './components/Dashboard'
+import TabIcon from './components/TabIcon'
 const RouterWithRedux = connect()(Router)
 
 class RouterComponent extends Component {
@@ -36,23 +37,27 @@ class RouterComponent extends Component {
         </Scene>
 
         {/* set initial to true if user exists */}
-        <Scene key="main" initial={this.props.user}>
+        <Scene key="main" initial={this.props.user} tabs >
+          <Scene key="dashboard" title= "Dashboard" component={Dashboard} icon={TabIcon} />
           <Scene
             key="employeeList"
             component={GrownodesList}
-            title="Employees"
+            title="Grow Nodes"
             rightTitle="Add"
             onRight={() => Actions.employeeCreate()}
+            icon={TabIcon}
           />
           <Scene
             key="employeeCreate"
             component={EmployeeCreate}
-            title="Create Employee"
+            title="Settings"
+            icon={TabIcon}
           />
           <Scene
             key="GrownodeEdit"
             component={GrownodeEdit}
             title="Edit Employee"
+            icon={TabIcon}
           />
         </Scene>
       </Scene>,
@@ -61,7 +66,7 @@ class RouterComponent extends Component {
 
   render() {
     if (this.props.render) {
-      return <RouterWithRedux scenes={this.createScenes()} sceneStyle={{ paddingTop: 65 }} />
+      return <RouterWithRedux scenes={this.createScenes()} />
     }
     return null
   }

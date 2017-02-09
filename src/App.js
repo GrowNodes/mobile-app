@@ -7,6 +7,9 @@ import createFilter from 'redux-persist-transform-filter'
 import RouterComponent from './Router'
 import Store from './Store'
 
+console.disableYellowBox = true
+
+
 class App extends Component {
   constructor(props) {
     super(props)
