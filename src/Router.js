@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { Scene, Router, Actions } from 'react-native-router-flux'
 import Store from './Store'
 import LoginForm from './components/LoginForm'
-import GrownodesList from './components/GrownodesList'
+import GrownodesList from './screens/GrownodesList'
 import EmployeeCreate from './components/EmployeeCreate'
 import GrownodeEdit from './components/GrownodeEdit'
 import { logoutUser } from './actions'
 import { Base } from './utils'
-import Dashboard from './components/Dashboard'
+import HomeScreen from './screens/HomeScreen'
 import TabIcon from './components/TabIcon'
+
 const RouterWithRedux = connect()(Router)
 
 class RouterComponent extends Component {
@@ -38,7 +39,7 @@ class RouterComponent extends Component {
 
         {/* set initial to true if user exists */}
         <Scene key="main" initial={this.props.user} tabs >
-          <Scene key="dashboard" title= "Dashboard" component={Dashboard} icon={TabIcon} />
+          <Scene key="home" title="Home" component={HomeScreen} icon={TabIcon} />
           <Scene
             key="employeeList"
             component={GrownodesList}
@@ -50,13 +51,13 @@ class RouterComponent extends Component {
           <Scene
             key="employeeCreate"
             component={EmployeeCreate}
-            title="Settings"
+            title="Community"
             icon={TabIcon}
           />
           <Scene
             key="GrownodeEdit"
             component={GrownodeEdit}
-            title="Edit Employee"
+            title="Shop"
             icon={TabIcon}
           />
         </Scene>

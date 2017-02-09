@@ -3,7 +3,7 @@ import { ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { fetchGrownodesAndConnectToMqtt } from '../actions'
-import GrownodesListItem from './GrownodesListItem'
+import GrownodesListItem from '../components/GrownodesListItem'
 
 class GrownodesList extends Component {
 
