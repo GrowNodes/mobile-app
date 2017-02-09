@@ -96,7 +96,14 @@ class RouterComponent extends Component {
 
   render() {
     if (this.props.render) {
-      return <RouterWithRedux scenes={this.createScenes()} getSceneStyle={getSceneStyle} />
+      return (
+        <RouterWithRedux
+          scenes={this.createScenes()}
+          getSceneStyle={getSceneStyle}
+
+          onExitApp={() => true} // ANDROID: don't exit on back @todo exit after 3 presses
+        />
+      )
     }
     return null
   }
