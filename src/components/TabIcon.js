@@ -1,23 +1,23 @@
 import React, {
   PropTypes,
-} from 'react';
+} from 'react'
 import {
   Text,
-} from 'react-native';
+} from 'react-native'
 import { Icon } from 'native-base'
 const propTypes = {
   selected: PropTypes.bool,
   title: PropTypes.string,
-};
+}
 
-const TabIcon = (props) => (
+const TabIcon = props => (
   <Text
     style={{ color: props.selected ? 'red' : 'black' }}
   >
     {props.title}
   </Text>
-);
+)
 
-TabIcon.propTypes = propTypes;
+TabIcon.propTypes = propTypes
 
-export default TabIcon;
+export default TabIcon

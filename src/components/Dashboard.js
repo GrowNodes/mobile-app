@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base'
 
 
-
-
-// 
+//
 // <Footer>
 //   <FooterTab>
 //     <Button full>
@@ -12,10 +10,6 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 //     </Button>
 //   </FooterTab>
 // </Footer>
-
-
-
-
 
 
 class Dashboard extends Component {

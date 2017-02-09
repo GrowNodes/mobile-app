@@ -38,7 +38,7 @@ class RouterComponent extends Component {
 
         {/* set initial to true if user exists */}
         <Scene key="main" initial={this.props.user} tabs >
-          <Scene key="dashboard" title= "Dashboard" component={Dashboard} icon={TabIcon} />
+          <Scene key="dashboard" title="Dashboard" component={Dashboard} icon={TabIcon} />
           <Scene
             key="employeeList"
             component={GrownodesList}
@@ -74,7 +74,7 @@ class RouterComponent extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
   }
 }
 

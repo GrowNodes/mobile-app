@@ -1,16 +1,29 @@
-import { compose, createStore, applyMiddleware } from 'redux'
-import { autoRehydrate } from 'redux-persist'
-import ReduxThunk from 'redux-thunk'
-import devToolsEnhancer from 'remote-redux-devtools'
-import rootReducer from './reducers'
 
-const Store = createStore(
-  rootReducer,
-  devToolsEnhancer(),
-  compose(
-    autoRehydrate({ log: true }),
-    applyMiddleware(ReduxThunk),
-  ),
+
+// Redux
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import logger from 'redux-logger'
+
+// Navigation
+import { NavigatorTabOne } from './tabOne/navigationConfiguration'
+import { NavigatorTabTwo } from './tabTwo/navigationConfiguration'
+import { NavigatorTabThree } from './tabThree/navigationConfiguration'
+import { tabBarReducer } from './AppNavigationConfig'
+
+// Middleware
+const middleware = () => {
+  return applyMiddleware(logger())
+}
+
+export default createStore(
+  combineReducers({
+    tabBar: tabBarReducer,
+
+    tabOne: (state, action) => NavigatorTabOne.router.getStateForAction(action, state),
+
+    tabTwo: (state, action) => NavigatorTabTwo.router.getStateForAction(action, state),
+
+    tabThree: (state, action) => NavigatorTabThree.router.getStateForAction(action, state),
+  }),
+  middleware(),
 )
-
-export default Store
