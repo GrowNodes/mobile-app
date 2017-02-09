@@ -39,6 +39,6 @@ export const loginUserWithCreds = ({ email, password }) => {
 }
 
 export const logoutUser = () => {
-  // Actions.auth({ type: 'reset' })
+  Actions.auth({ type: 'reset' })
   return { type: LOGOUT_USER }
 }

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
+import createFilter from 'redux-persist-transform-filter'
 import Router from './Router'
 
 import Store from './Store'
@@ -10,7 +11,7 @@ import Store from './Store'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { rehydrated: false }
+    this.state = { render: false }
   }
 
   componentWillMount() {
@@ -22,12 +23,17 @@ class App extends Component {
 
     /* eslint-enable */
 
+
+    // @todo refactor this
     persistStore(Store, {
       blacklist: ['mqtt'],
       storage: AsyncStorage,
+      transforms: [
+        createFilter('auth', ['user']),     // save only a subset of auth reducer
+      ],
     }, () => {
-      // Finished hydrating store
-      this.setState({ rehydrated: true })
+      // Finished hydrating store, can render router now
+      this.setState({ render: true })
     })
 
     console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
@@ -37,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={Store}>
-        <Router render={this.state.rehydrated} />
+        <Router render={this.state.render} />
       </Provider>
     )
   }

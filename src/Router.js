@@ -9,34 +9,32 @@ import GrownodeEdit from './components/GrownodeEdit'
 import { logoutUser } from './actions'
 import { Base } from './utils'
 
-
 class RouterComponent extends Component {
   componentWillMount() {
     // Listen for firebase auth and kick the user if not valid
     Base.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        console.info("logout user here")
-        // this.props.logoutUser()
+      console.log('onAuthStateChanged user:', user)
+      if (!user && this.props.user) {
+        // Clearing saved user
+        Store.dispatch(logoutUser())
       }
     })
   }
 
+  createScenes() {
+    return Actions.create(
+      // We are optimistically assuming any persisted user is valid
+      // and setting the initial scene to "main".
+      // Firebase will verify auth later asyncly (see App.js)
 
-  renderRouter() {
-    // We are optimistically assuming any persisted user is valid
-    // and setting the initial scene to "main".
-    // Firebase will verify auth later asyncly (see App.js)
-    const user = Store.getState().auth.user
-
-    // Scenes read from top down
-    return (
-      <Router sceneStyle={{ paddingTop: 65 }}>
+      // Scenes read from top down
+      <Scene key="root">
         <Scene key="auth" >
           <Scene key="login" component={LoginForm} title="Please Login" direction="vertical" />
         </Scene>
 
         {/* set initial to true if user exists */}
-        <Scene key="main" initial={user}>
+        <Scene key="main" initial={this.props.user}>
           <Scene
             key="employeeList"
             component={GrownodesList}
@@ -55,16 +53,22 @@ class RouterComponent extends Component {
             title="Edit Employee"
           />
         </Scene>
-      </Router>
+      </Scene>,
     )
   }
 
   render() {
     if (this.props.render) {
-      return this.renderRouter()
+      return <Router scenes={this.createScenes()} sceneStyle={{ paddingTop: 65 }} />
     }
     return null
   }
 }
 
-export default connect(null, { logoutUser })(RouterComponent)
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps)(RouterComponent)
