@@ -19,9 +19,7 @@ class GrownodesList extends Component {
           <List
             dataArray={this.props.grownodes}
             renderRow={grownode =>
-              <ListItem>
-                <Text>{grownode.id}</Text>
-              </ListItem>
+              <GrownodesListItem grownode={grownode} />
             }
           />
         </Content>

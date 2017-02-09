@@ -11,7 +11,7 @@ import { logoutUser } from './actions'
 import { Base } from './utils'
 import HomeScreen from './screens/HomeScreen'
 import TabIcon from './components/TabIcon'
-
+import GrownodeControl from './screens/GrownodeControl'
 const RouterWithRedux = connect()(Router)
 
 
@@ -64,14 +64,18 @@ class RouterComponent extends Component {
         {/* set initial to true if user exists */}
         <Scene key="main" initial={this.props.user} tabs>
           <Scene key="home" title="Home" component={HomeScreen} icon={TabIcon} />
-          <Scene
-            key="employeeList"
-            component={GrownodesList}
-            title="Grow Nodes"
-            rightTitle="Add"
-            onRight={() => Actions.employeeCreate()}
-            icon={TabIcon}
-          />
+          <Scene key="grownodes" icon={TabIcon} title="Grow Nodes" >
+
+            <Scene
+              key="list"
+              component={GrownodesList}
+              title="Your Grow Nodes"
+              rightTitle="Add"
+              onRight={() => Actions.employeeCreate()}
+            />
+            <Scene key="control" component={GrownodeControl} title="Grow Node" />
+          </Scene>
+
           <Scene
             key="employeeCreate"
             component={EmployeeCreate}
@@ -85,6 +89,7 @@ class RouterComponent extends Component {
             icon={TabIcon}
           />
         </Scene>
+
       </Scene>,
     )
   }
