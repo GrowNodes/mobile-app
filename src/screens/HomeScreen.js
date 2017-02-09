@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base';
 
-class Dashboard extends Component {
+class HomeScreen extends Component {
   render() {
     return (
       <Container>
@@ -27,4 +27,4 @@ class Dashboard extends Component {
     )
   }
 }
-export default Dashboard
+export default HomeScreen
