@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
 import GrownodeTodoList from '../components/GrownodeTodoList'
 
 class GrownodeControl extends Component {
-  componentWillMount () {
-    console.log(this.props.grownode)
-  }
-
   render () {
-    const grownode = this.props.grownode
+    const { selectedGrownodeId, grownode } = this.props
     return (
       <Container>
         <Content>
@@ -17,7 +15,7 @@ class GrownodeControl extends Component {
               <H1>Cycle Status</H1>
             </CardItem>
             <CardItem>
-              <Text>Flowering stage since 2 mins ago</Text>
+              <Text>Flowering stage since {grownode.settings.stage_start_at}</Text>
             </CardItem>
           </Card>
 
@@ -48,7 +46,7 @@ class GrownodeControl extends Component {
                 <H1>Todo List</H1>
               </Body>
             </CardItem>
-            <GrownodeTodoList todo_list={grownode.todo_list} />
+            <GrownodeTodoList todo_list={grownode.todo_list} selectedGrownodeId={selectedGrownodeId} />
           </Card>
 
           <Card>
@@ -84,4 +82,9 @@ class GrownodeControl extends Component {
     )
   }
 }
-export default GrownodeControl
+
+const mapStateToProps = (state, ownProps) => ({
+  grownode: state.grownodes[ownProps.selectedGrownodeId]
+})
+
+export default connect(mapStateToProps)(GrownodeControl)

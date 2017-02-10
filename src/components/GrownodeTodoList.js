@@ -6,7 +6,10 @@ import _ from 'lodash'
 
 class GrownodeTodoList extends Component {
   handlePress (todoItem) {
-    Actions.GrownodeTodoListItemScreen({ todoItem })
+    Actions.GrownodeTodoListItemScreen({
+      selectedGrownodeId: this.props.selectedGrownodeId,
+      selectedGrownodeTodoId: todoItem.id
+    })
   }
 
   render () {

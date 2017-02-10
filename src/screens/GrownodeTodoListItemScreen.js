@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Container, Content, Card, H1, CardItem, Body, Text } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
@@ -37,4 +38,14 @@ class GrownodeTodoListItemScreen extends Component {
     )
   }
 }
-export default GrownodeTodoListItemScreen
+
+const mapStateToProps = (state, ownProps) => {
+  const grownode = state.grownodes[ownProps.selectedGrownodeId]
+  const todoItem = grownode.todo_list[ownProps.selectedGrownodeTodoId]
+
+  return {
+    todoItem
+  }
+}
+
+export default connect(mapStateToProps)(GrownodeTodoListItemScreen)

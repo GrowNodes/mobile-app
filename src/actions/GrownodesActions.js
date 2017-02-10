@@ -4,6 +4,7 @@ import { Base } from '../utils'
 // export const EMPLOYEE_UPDATE = 'empl update'
 // export const EMPLOYEE_CREATE = 'empl create'
 export const GROWNODES_FETCHING = 'fetching list of grownodes'
+export const GROWNODES_SYNCING = 'synchronizing list of grownodes'
 export const GROWNODES_FETCH_FAIL = 'fetching list of grownodes failed'
 export const GROWNODES_FETCH_SUCCESS = 'fetching list of grownodes success'
 
@@ -27,8 +28,7 @@ export const GROWNODES_FETCH_SUCCESS = 'fetching list of grownodes success'
 //   }
 // }
 
-
-export function grownodesFetch() {
+export function grownodesFetch () {
   return (dispatch, getState) => {
     dispatch({ type: GROWNODES_FETCHING })
 
@@ -37,8 +37,8 @@ export function grownodesFetch() {
       asArray: false,
       queries: {
         orderByChild: 'owner_uid',
-        equalTo: getState().auth.user.uid,
-      },
+        equalTo: getState().auth.user.uid
+      }
     }).then((data) => {
       console.log(data)
       dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: data })
@@ -48,3 +48,35 @@ export function grownodesFetch() {
     })
   }
 }
+
+export const grownodesSync = () => {
+  return (dispatch, getState) => {
+    const { user } = getState().auth
+
+    Base.database().ref(`grow_nodes`)
+      .orderByChild('owner_uid').equalTo(user.uid)
+      .on('value', (snapshot) => {
+        dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
+      })
+
+    dispatch({ type: GROWNODES_SYNCING })
+    return Promise.resolve()
+  }
+}
+
+// export const grownodesFetchAndSync = () => {
+//   return (dispatch, getState) => {
+//     return new Promise((resolve, reject) => {
+//       const { user } = getState().auth
+//       console.log(user)
+//       dispatch({ type: GROWNODES_FETCHING })
+//
+//       Base.database().ref(`/users/${user.uid}/employees`)
+//       .orderByChild('owner_uid').equalTo(user.uid)
+//       .on('value', (snapshot) => {
+//         dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
+//         resolve()
+//       })
+//     })
+//   }
+// }
