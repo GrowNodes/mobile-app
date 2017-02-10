@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
+import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
 
 class GrownodeControl extends Component {
+  componentWillMount () {
+    console.log(this.props.grownode)
+  }
+
   render () {
     const grownode = this.props.grownode
     return (
@@ -9,16 +13,72 @@ class GrownodeControl extends Component {
         <Content>
           <Card>
             <CardItem>
+              <H1>Cycle Status</H1>
+            </CardItem>
+            <CardItem>
+              <Text>Flowering stage since 2 mins ago</Text>
+            </CardItem>
+          </Card>
+
+          <Card>
+            <CardItem>
+              <H1>Environment</H1>
+            </CardItem>
+            <CardItem>
+              <Text>
+                Light: ON
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                Fan: ON
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                Air Temperature: 78.2 F
+              </Text>
+            </CardItem>
+          </Card>
+
+          <Card>
+            <CardItem>
               <Body>
-                <Text>
-                  {grownode.id}
-                </Text>
+                <H1>Todo List</H1>
               </Body>
             </CardItem>
             <CardItem>
               <Body>
                 <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  render list here
+                </Text>
+              </Body>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem>
+              <Body>
+                <H1>Switches</H1>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text>
+                    render switchers here
+                </Text>
+              </Body>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem>
+              <Body>
+                <H1>Props</H1>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text>
+                  Harware serial number {grownode.id}
                 </Text>
               </Body>
             </CardItem>
