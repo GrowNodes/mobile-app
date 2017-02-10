@@ -74,7 +74,7 @@ class RouterComponent extends Component {
               onRight={() => Actions.employeeCreate()}
             />
             <Scene key='control' component={GrownodeControl} title='Control Grow Node' />
-            <Scene key='GrownodeTodoListItemScreen' component={GrownodeTodoListItemScreen} title='Todo Item' rightTitle='Done' />
+            <Scene key='GrownodeTodoListItemScreen' component={GrownodeTodoListItemScreen} title='Todo Item' />
           </Scene>
 
           <Scene

@@ -12,3 +12,7 @@ There is no way this will turn into unmaintainable spaghetti. /s
 https://github.com/aksonov/react-native-router-flux/issues/1073
 static onRight() in component overwrites onRight() prop in <Scene/>
 Can also do this with renderRightText or something names similar
+
+https://github.com/aksonov/react-native-router-flux/issues/634#issuecomment-221487412
+Can call refresh when component mounts to modify navbar.
+Useful because static doesn't have a this context

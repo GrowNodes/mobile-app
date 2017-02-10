@@ -2,10 +2,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Content, Card, H1, CardItem, Body, Text } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import { GrownodeTodoListItemSetComplete } from '../actions'
 
 class GrownodeTodoListItemScreen extends Component {
-  static onRight () {
-    Actions.pop()
+  componentWillMount () {
+    Actions.refresh({ onRight: this.handleSetCompleteBtn.bind(this), rightTitle: 'Done' })
+  }
+
+  handleSetCompleteBtn () {
+    const { selectedGrownodeId, selectedGrownodeTodoId } = this.props
+
+    this.props.GrownodeTodoListItemSetComplete(selectedGrownodeId, selectedGrownodeTodoId)
+    .then(() => {
+      Actions.pop()
+    })
   }
 
   render () {
@@ -40,12 +50,12 @@ class GrownodeTodoListItemScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const grownode = state.grownodes[ownProps.selectedGrownodeId]
-  const todoItem = grownode.todo_list[ownProps.selectedGrownodeTodoId]
+  const todoList = state.grownodes[ownProps.selectedGrownodeId].todo_list || {}
+  const todoItem = todoList[ownProps.selectedGrownodeTodoId] || {}
 
   return {
     todoItem
   }
 }
 
-export default connect(mapStateToProps)(GrownodeTodoListItemScreen)
+export default connect(mapStateToProps, { GrownodeTodoListItemSetComplete })(GrownodeTodoListItemScreen)

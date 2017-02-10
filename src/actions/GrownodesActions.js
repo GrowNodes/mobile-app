@@ -32,7 +32,7 @@ export function grownodesFetch () {
   return (dispatch, getState) => {
     dispatch({ type: GROWNODES_FETCHING })
 
-    return Base.fetch('grow_nodes', {
+    return Base.fetch('grownodes', {
       context: {},
       asArray: false,
       queries: {
@@ -53,7 +53,7 @@ export const grownodesSync = () => {
   return (dispatch, getState) => {
     const { user } = getState().auth
 
-    Base.database().ref(`grow_nodes`)
+    Base.database().ref(`grownodes`)
       .orderByChild('owner_uid').equalTo(user.uid)
       .on('value', (snapshot) => {
         dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
