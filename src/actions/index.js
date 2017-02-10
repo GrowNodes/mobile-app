@@ -7,13 +7,9 @@ export * from './MqttActions'
 
 export function fetchGrownodesAndConnectToMqtt () {
   return (dispatch, getState) => {
-    return dispatch(grownodesFetch()).then(() => {
-      return dispatch(grownodesSync()).then(() => {
-        console.log('synced ok')
-        // return dispatch(mqttConnect()).then(() => {
-        //   return dispatch(mqttSubscribe(Object.keys(getState().grownodes)))
-        // })
-      })
-    })
+    return dispatch(grownodesFetch())
+    .then(dispatch(grownodesSync()))
+    // .then(dispatch(mqttConnect()))
+    // .then(dispatch(mqttSubscribe(Object.keys(getState().grownodes))))
   }
 }
