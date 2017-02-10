@@ -12,6 +12,8 @@ import { Base } from './utils'
 import HomeScreen from './screens/HomeScreen'
 import TabIcon from './components/TabIcon'
 import GrownodeControl from './screens/GrownodeControl'
+import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
+
 const RouterWithRedux = connect()(Router)
 
 const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
@@ -72,6 +74,7 @@ class RouterComponent extends Component {
               onRight={() => Actions.employeeCreate()}
             />
             <Scene key='control' component={GrownodeControl} title='Control Grow Node' />
+            <Scene key='GrownodeTodoListItemScreen' component={GrownodeTodoListItemScreen} title='Todo Item' rightTitle='Done' />
           </Scene>
 
           <Scene

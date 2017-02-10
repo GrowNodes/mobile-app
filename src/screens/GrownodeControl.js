@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
+import GrownodeTodoList from '../components/GrownodeTodoList'
 
 class GrownodeControl extends Component {
   componentWillMount () {
@@ -47,14 +48,9 @@ class GrownodeControl extends Component {
                 <H1>Todo List</H1>
               </Body>
             </CardItem>
-            <CardItem>
-              <Body>
-                <Text>
-                  render list here
-                </Text>
-              </Body>
-            </CardItem>
+            <GrownodeTodoList todo_list={grownode.todo_list} />
           </Card>
+
           <Card>
             <CardItem>
               <Body>

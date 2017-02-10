@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
-import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
+import { Container, Content, Card, H1, CardItem, Body, Text } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 
-class HomeScreen extends Component {
+class GrownodeTodoListItemScreen extends Component {
+  static onRight () {
+    Actions.pop()
+  }
+
   render () {
+    const {todoItem} = this.props
+
     return (
       <Container>
         <Content>
           <Card>
             <CardItem>
               <Body>
-                <Text>
-                  Your text here
-                </Text>
+                <H1>
+                  {todoItem.title}
+                </H1>
               </Body>
+            </CardItem>
+            <CardItem>
+              <Text>Created: {todoItem.created_at}</Text>
             </CardItem>
             <CardItem>
               <Body>
@@ -27,4 +37,4 @@ class HomeScreen extends Component {
     )
   }
 }
-export default HomeScreen
+export default GrownodeTodoListItemScreen
