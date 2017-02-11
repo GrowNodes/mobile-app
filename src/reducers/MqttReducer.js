@@ -3,15 +3,14 @@ import {
   MQTT_DISCONNECTED,
   MQTT_SENT,
   MQTT_RECEIVED,
-  MQTT_SUBSCRIBED,
+  MQTT_SUBSCRIBED
 } from '../actions/MqttActions'
-
 
 const initialState = {
   connected: false,
   last_sent_message: {},
   last_received_message: {},
-  subscriptions: [],
+  subscriptions: []
 }
 
 export default (state = initialState, action) => {
@@ -25,7 +24,7 @@ export default (state = initialState, action) => {
     case MQTT_RECEIVED:
       return { ...state, last_received_message: action.payload }
     case MQTT_SUBSCRIBED:
-      return { ...state, subscriptions: action.payload }
+      return { ...state, subscriptions: [...state.subscriptions, action.payload] }
     default:
       return state
   }

@@ -9,8 +9,17 @@ export * from './GrownodeTodoListActions'
 export function fetchGrownodesAndConnectToMqtt () {
   return (dispatch, getState) => {
     return dispatch(grownodesFetch())
-    .then(dispatch(grownodesSync()))
-    // .then(dispatch(mqttConnect()))
-    // .then(dispatch(mqttSubscribe(Object.keys(getState().grownodes))))
+    .then(() => dispatch(grownodesSync()))
+    .then(() => dispatch(mqttConnect()))
+    .then(() => {
+      const serials = Object.keys(getState().grownodes)
+      const topics = serials.map((serial) => {
+        return `nodes/${serial}`
+      })
+      return dispatch(mqttSubscribe(topics))
+    })
+    // .catch(error => {
+    //   console.warn('fetchGrownodesAndConnectToMqtt', error)
+    // })
   }
 }
