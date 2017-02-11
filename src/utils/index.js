@@ -21,3 +21,11 @@
 
 export * from './Base'
 export * from './Mqtt'
+
+export const stringToBoolOrString = (string) => {
+  if (string === 'true' || string === 'false') {
+    return string === 'true'
+  }
+
+  return string
+}
