@@ -1,32 +1,10 @@
 // import { Actions } from 'react-native-router-flux'
 import { Base } from '../utils'
 
-// export const EMPLOYEE_UPDATE = 'empl update'
-// export const EMPLOYEE_CREATE = 'empl create'
 export const GROWNODES_FETCHING = 'fetching list of grownodes'
 export const GROWNODES_SYNCING = 'synchronizing list of grownodes'
 export const GROWNODES_FETCH_FAIL = 'fetching list of grownodes failed'
 export const GROWNODES_FETCH_SUCCESS = 'fetching list of grownodes success'
-
-// export const grownodeUpdate = ({ prop, value }) => {
-//   return {
-//     type: EMPLOYEE_UPDATE,
-//     payload: { prop, value },
-//   }
-// }
-//
-// export const grownodeCreate = ({ name, phone, shift }) => {
-//   const { currentUser } = Base.auth()
-//
-//   return (dispatch) => {  // utilizing redux thunk to skip returning anything
-//     Base.database().ref(`/users/${currentUser.uid}/grownodes`)
-//     .push({ name, phone, shift })
-//     .then(() => {
-//       Actions.grownodeList({ type: 'reset' })
-//       dispatch({ type: EMPLOYEE_CREATE })
-//     })
-//   }
-// }
 
 export function grownodesFetch () {
   return (dispatch, getState) => {

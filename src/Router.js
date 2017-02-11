@@ -5,12 +5,12 @@ import { Scene, Router, Actions } from 'react-native-router-flux'
 import Store from './Store'
 import LoginForm from './components/LoginForm'
 import GrownodesList from './screens/GrownodesList'
-import EmployeeCreate from './components/EmployeeCreate'
-import GrownodeEdit from './components/GrownodeEdit'
 import { logoutUser } from './actions'
 import { Base } from './utils'
 import HomeScreen from './screens/HomeScreen'
 import TabIcon from './components/TabIcon'
+import Community from './screens/Community'
+import Shop from './screens/Shop'
 import GrownodeControl from './screens/GrownodeControl'
 import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
 
@@ -62,30 +62,30 @@ class RouterComponent extends Component {
         </Scene>
 
         {/* set initial to true if user exists */}
-        <Scene key='main' initial={this.props.user} tabs>
+        <Scene key='HomeScreen' initial={this.props.user} tabs>
           <Scene key='home' title='Home' component={HomeScreen} icon={TabIcon} />
           <Scene key='grownodes' icon={TabIcon} title='Grow Nodes' >
 
             <Scene
-              key='list'
+              key='GrownodesList'
               component={GrownodesList}
               title='Your Grow Nodes'
               rightTitle='Add'
-              onRight={() => Actions.employeeCreate()}
+              onRight={() => alert('Doesnt work yet')}
             />
             <Scene key='control' component={GrownodeControl} title='Control Grow Node' />
             <Scene key='GrownodeTodoListItemScreen' component={GrownodeTodoListItemScreen} title='Todo Item' />
           </Scene>
 
           <Scene
-            key='employeeCreate'
-            component={EmployeeCreate}
+            key='Community'
+            component={Community}
             title='Community'
             icon={TabIcon}
           />
           <Scene
-            key='GrownodeEdit'
-            component={GrownodeEdit}
+            key='Shop'
+            component={Shop}
             title='Shop'
             icon={TabIcon}
           />
