@@ -25,17 +25,22 @@ class GrownodeControl extends Component {
             </CardItem>
             <CardItem>
               <Text>
-                Light: ON
+                Light: {grownode.mqtt['grow_light/on'] ? 'ON' : 'OFF'}
               </Text>
             </CardItem>
             <CardItem>
               <Text>
-                Fan: ON
+                Water Pump: {grownode.mqtt['water_pump/on'] ? 'ON' : 'OFF'}
               </Text>
             </CardItem>
             <CardItem>
               <Text>
-                Air Temperature: 78.2 F
+                Air Temperature: {grownode.mqtt['air_sensor/degrees']} °F
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                Air Humidity: {grownode.mqtt['air_sensor/humidity']}%
               </Text>
             </CardItem>
           </Card>
@@ -66,15 +71,28 @@ class GrownodeControl extends Component {
           <Card>
             <CardItem>
               <Body>
-                <H1>Props</H1>
+                <H1>System</H1>
               </Body>
             </CardItem>
             <CardItem>
-              <Body>
-                <Text>
+              <Text>
                   Harware serial number {grownode.id}
-                </Text>
-              </Body>
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  Wifi Connection: {grownode.mqtt['$online'] ? 'online' : 'offline'}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  Harware serial number {grownode.id}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  Harware serial number {grownode.id}
+              </Text>
             </CardItem>
           </Card>
         </Content>
