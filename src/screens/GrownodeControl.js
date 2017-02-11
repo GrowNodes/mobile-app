@@ -84,16 +84,6 @@ class GrownodeControl extends Component {
                   Wifi Connection: {grownode.mqtt['$online'] ? 'online' : 'offline'}
               </Text>
             </CardItem>
-            <CardItem>
-              <Text>
-                  Harware serial number {grownode.id}
-              </Text>
-            </CardItem>
-            <CardItem>
-              <Text>
-                  Harware serial number {grownode.id}
-              </Text>
-            </CardItem>
           </Card>
         </Content>
       </Container>
@@ -102,7 +92,10 @@ class GrownodeControl extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  grownode: state.grownodes[ownProps.selectedGrownodeId]
+  grownode: {
+    ...state.grownodes[ownProps.selectedGrownodeId],
+    id: ownProps.selectedGrownodeId
+  }
 })
 
 export default connect(mapStateToProps)(GrownodeControl)
