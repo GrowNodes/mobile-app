@@ -1,6 +1,7 @@
 /* global Paho */
 import init from 'react_native_mqtt'
 import { AsyncStorage } from 'react-native'
+import uuid from 'uuid'
 
 init({
   size: 10000,
@@ -10,4 +11,4 @@ init({
   sync: { }
 })
 
-export const Mqtt = new Paho.MQTT.Client('159.203.220.150', 9001, 'sdfhkfdsa')
+export const Mqtt = new Paho.MQTT.Client('159.203.220.150', 9001, 'adsfjkksfla')

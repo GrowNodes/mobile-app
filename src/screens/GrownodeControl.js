@@ -7,7 +7,7 @@ import GrownodeTodoList from '../components/GrownodeTodoList'
 
 class GrownodeControl extends Component {
   render () {
-    const { selectedGrownodeId, grownode } = this.props
+    const { selectedGrownodeId, grownode, grownodeMqtt } = this.props
     return (
       <Container>
         <Content>
@@ -26,22 +26,22 @@ class GrownodeControl extends Component {
             </CardItem>
             <CardItem>
               <Text>
-                Light: {grownode.mqtt['grow_light/on'] ? 'ON' : 'OFF'}
+                Light: {grownodeMqtt['grow_light/on'] ? 'ON' : 'OFF'}
               </Text>
             </CardItem>
             <CardItem>
               <Text>
-                Water Pump: {grownode.mqtt['water_pump/on'] ? 'ON' : 'OFF'}
+                Water Pump: {grownodeMqtt['water_pump/on'] ? 'ON' : 'OFF'}
               </Text>
             </CardItem>
             <CardItem>
               <Text>
-                Air Temperature: {grownode.mqtt['air_sensor/degrees']} °F
+                Air Temperature: {grownodeMqtt['air_sensor/degrees']} °F
               </Text>
             </CardItem>
             <CardItem>
               <Text>
-                Air Humidity: {grownode.mqtt['air_sensor/humidity']}%
+                Air Humidity: {grownodeMqtt['air_sensor/humidity']}%
               </Text>
             </CardItem>
           </Card>
@@ -82,7 +82,7 @@ class GrownodeControl extends Component {
             </CardItem>
             <CardItem>
               <Text>
-                  Wifi Connection: {grownode.mqtt['$online'] ? 'online' : 'offline'}
+                  Wifi Connection: {grownodeMqtt['$online'] ? 'online' : 'offline'}
               </Text>
             </CardItem>
           </Card>
@@ -96,7 +96,8 @@ const mapStateToProps = (state, ownProps) => ({
   grownode: {
     ...state.grownodes[ownProps.selectedGrownodeId],
     id: ownProps.selectedGrownodeId
-  }
+  },
+  grownodeMqtt: state.grownodesMqtt[ownProps.selectedGrownodeId]
 })
 
 export default connect(mapStateToProps)(GrownodeControl)
