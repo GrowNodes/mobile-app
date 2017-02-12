@@ -1,4 +1,4 @@
-import { Mqtt } from '../utils'
+import { Mqtt, MqttMessage } from '../utils'
 
 export const MQTT_CONNECTING = 'MQTT_CONNECTING'
 export const MQTT_CONNECTED = 'MQTT_CONNECTED'
@@ -45,8 +45,10 @@ export function mqttSubscribe (topics) {
 }
 
 export function mqttSend (topic, body) {
-  const pahoMessage = new Mqtt.MQTT.Message(body)
-  pahoMessage.destinationName = topic
+  const topicWithRoot = `nodes/${topic}`
+  console.info('mqttSend:', topicWithRoot, body)
+  const pahoMessage = new MqttMessage(body)
+  pahoMessage.destinationName = topicWithRoot
 
   Mqtt.send(pahoMessage)
   return { type: MQTT_SENT, payload: pahoMessage }
