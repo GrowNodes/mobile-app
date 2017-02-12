@@ -8,6 +8,7 @@ import GrownodeTodoList from '../components/GrownodeTodoList'
 class GrownodeControl extends Component {
   render () {
     const { selectedGrownodeId, grownode, grownodeMqtt } = this.props
+    const configObj = grownodeMqtt['$implementation/config_obj']
     return (
       <Container>
         <Content>
@@ -16,7 +17,7 @@ class GrownodeControl extends Component {
               <H1>Cycle Status</H1>
             </CardItem>
             <CardItem>
-              <Text>{grownode.settings.stage_name} stage since {grownode.settings.stage_start_at}</Text>
+              <Text>{configObj.settings.stage_name} stage since {configObj.settings.stage_start_at}</Text>
             </CardItem>
           </Card>
 
@@ -36,7 +37,7 @@ class GrownodeControl extends Component {
             </CardItem>
             <CardItem>
               <Text>
-                Air Temperature: {grownodeMqtt['air_sensor/degrees']} °F
+                Air Temperature: {grownodeMqtt['air_sensor/temperature']} °F
               </Text>
             </CardItem>
             <CardItem>
