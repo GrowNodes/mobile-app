@@ -7,7 +7,8 @@ const initialState = {}
 export default (state = initialState, action) => {
   switch (action.type) {
     case GROWNODES_FETCH_SUCCESS:
-      return { ...action.payload }
+      console.log(state)
+      return { ...state, ...action.payload }
     case MQTT_RECEIVED:
       const { destinationName, payloadString } = action.payload
       // Remove /nodes/serialnumber/ from topic

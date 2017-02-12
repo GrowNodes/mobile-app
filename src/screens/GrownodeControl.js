@@ -12,7 +12,7 @@ class GrownodeControl extends Component {
       <Container>
         <Content>
           <Card>
-            <CardItem button onPress={() => Actions.GrownodeGrowChanger()}>
+            <CardItem button onPress={() => Actions.GrownodeGrowChanger({selectedGrownodeId})}>
               <H1>Cycle Status</H1>
             </CardItem>
             <CardItem>
