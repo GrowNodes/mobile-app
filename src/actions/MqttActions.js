@@ -12,7 +12,7 @@ export const MQTT_SUBSCRIBE_FAILED = 'Failed to subscribe to a MQTT topic'
 
 export function mqttDisconnect () {
   Mqtt.disconnect()
-  console.log('mqtt disconnect called')
+  console.error('MQTT disconnect called')
   return {
     type: MQTT_DISCONNECTED
   }
@@ -70,7 +70,7 @@ export function mqttConnect () {
       }
 
       Mqtt.onConnectionLost = (responseObject) => {
-        console.warn('mqtt connection lost', responseObject)
+        console.error('mqtt connection lost', responseObject)
         dispatch({
           type: MQTT_DISCONNECTED,
           payload: responseObject

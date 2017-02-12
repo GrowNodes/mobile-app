@@ -42,7 +42,7 @@ class RouterComponent extends Component {
   componentWillMount () {
     // Listen for firebase auth and kick the user if not valid
     Base.auth().onAuthStateChanged((user) => {
-      console.log('onAuthStateChanged user:', user)
+      console.info('onAuthStateChanged user:', user)
       if (!user && this.props.user) {
         // Clearing saved user
         Store.dispatch(logoutUser())

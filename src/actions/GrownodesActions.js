@@ -18,11 +18,10 @@ export function grownodesFetch () {
         equalTo: getState().auth.user.uid
       }
     }).then((data) => {
-      console.log(data)
       dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: data })
     }).catch((error) => {
-      console.log(error)
       dispatch({ type: GROWNODES_FETCH_FAIL, payload: error })
+      console.error(GROWNODES_FETCH_FAIL, error)
     })
   }
 }

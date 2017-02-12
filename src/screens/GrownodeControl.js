@@ -16,7 +16,7 @@ class GrownodeControl extends Component {
               <H1>Cycle Status</H1>
             </CardItem>
             <CardItem>
-              <Text>Flowering stage since {grownode.settings.stage_start_at}</Text>
+              <Text>{grownode.settings.stage_name} stage since {grownode.settings.stage_start_at}</Text>
             </CardItem>
           </Card>
 

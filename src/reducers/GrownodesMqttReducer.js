@@ -6,7 +6,6 @@ const initialState = {}
 export default (state = initialState, action) => {
   switch (action.type) {
     case MQTT_RECEIVED:
-      console.log('mqtt rec!')
       const { destinationName, payloadString } = action.payload
       // Remove /nodes/serialnumber/ from topic
       // and then dispatch action
