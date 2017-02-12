@@ -13,6 +13,7 @@ import Community from './screens/Community'
 import Shop from './screens/Shop'
 import GrownodeControl from './screens/GrownodeControl'
 import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
+import GrownodeGrowChanger from './screens/GrownodeGrowChanger'
 
 const RouterWithRedux = connect()(Router)
 
@@ -74,6 +75,7 @@ class RouterComponent extends Component {
               onRight={() => alert('Doesnt work yet')}
             />
             <Scene key='control' component={GrownodeControl} title='Control Grow Node' />
+            <Scene key='GrownodeGrowChanger' component={GrownodeGrowChanger} title='Change Grow Settings' />
             <Scene key='GrownodeTodoListItemScreen' component={GrownodeTodoListItemScreen} title='Todo Item' />
           </Scene>
 

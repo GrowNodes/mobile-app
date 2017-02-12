@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { TouchableOpacity } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
 import GrownodeTodoList from '../components/GrownodeTodoList'
 
@@ -11,7 +12,7 @@ class GrownodeControl extends Component {
       <Container>
         <Content>
           <Card>
-            <CardItem>
+            <CardItem button onPress={() => Actions.GrownodeGrowChanger()}>
               <H1>Cycle Status</H1>
             </CardItem>
             <CardItem>
