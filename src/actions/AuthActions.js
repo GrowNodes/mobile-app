@@ -11,15 +11,14 @@ export const LOGOUT_USER = 'logout user'
 export const emailSetState = (text) => {
   return {
     type: EMAIL_SET_STATE,
-    payload: text,
+    payload: text
   }
 }
-
 
 export const passwordSetState = (password) => {
   return {
     type: PASSWORD_SET_STATE,
-    payload: password,
+    payload: password
   }
 }
 
@@ -32,7 +31,7 @@ export const loginUserWithCreds = ({ email, password }) => {
         dispatch({ type: LOGIN_USER_FAILED, payload: error.message })
       } else {
         dispatch({ type: LOGIN_USER_SUCCESS, payload: user })
-        Actions.main({ type: 'reset' })
+        Actions.HomeScreen({ type: 'reset' })
       }
     })
   }
