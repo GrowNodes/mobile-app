@@ -11,4 +11,4 @@ init({
   sync: { }
 })
 
-export const Mqtt = new Paho.MQTT.Client('159.203.220.150', 9001, 'adsfjkksfla')
+export const Mqtt = new Paho.MQTT.Client('159.203.220.150', 9001, uuid.v4()) // replace with device uuid
