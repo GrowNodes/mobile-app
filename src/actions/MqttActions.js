@@ -5,8 +5,10 @@ export const MQTT_CONNECTED = 'MQTT_CONNECTED'
 export const MQTT_DISCONNECTED = 'MQTT_DISCONNECTED'
 export const MQTT_SENT = 'MQTT_SENT'
 export const MQTT_RECEIVED = 'MQTT_RECEIVED'
-export const MQTT_SUBSCRIBED = 'MQTT_SUBSCRIBED'
-export const MQTT_SUBSCRIBE_FAILED = 'Failed to subscribe to MQTT'
+
+export const MQTT_SUBSCRIBE_MULTIPLE = 'Starting to subscribe to many MQTT topics'
+export const MQTT_SUBSCRIBED = 'Subscribed to MQTT topic'
+export const MQTT_SUBSCRIBE_FAILED = 'Failed to subscribe to a MQTT topic'
 
 export function mqttDisconnect () {
   Mqtt.disconnect()
@@ -17,6 +19,8 @@ export function mqttDisconnect () {
 
 export function mqttSubscribe (topics) {
   return dispatch => {
+    dispatch({type: MQTT_SUBSCRIBE_MULTIPLE, payload: topics})
+
     return new Promise((resolve, reject) => {
       const onSuccess = ({ invocationContext }) => {
         dispatch({ type: MQTT_SUBSCRIBED, payload: invocationContext.topic })

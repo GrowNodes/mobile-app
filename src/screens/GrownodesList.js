@@ -1,27 +1,32 @@
 import React, { Component } from 'react'
-import { ListView } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Content, List, ListItem, Text } from 'native-base'
+import { Container, Content, List, Spinner } from 'native-base'
 import _ from 'lodash'
 import { fetchGrownodesAndConnectToMqtt } from '../actions'
 import GrownodesListItem from '../components/GrownodesListItem'
 
 class GrownodesList extends Component {
-
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchGrownodesAndConnectToMqtt()
   }
 
-  render() {
+  renderWithSpinner () {
+    if (!this.props.mqttReady) {
+      return <Spinner />
+    }
+    return <List
+      dataArray={this.props.grownodes}
+      renderRow={grownode =>
+        <GrownodesListItem grownode={grownode} />
+      }
+    />
+  }
+
+  render () {
     return (
       <Container>
         <Content>
-          <List
-            dataArray={this.props.grownodes}
-            renderRow={grownode =>
-              <GrownodesListItem grownode={grownode} />
-            }
-          />
+          {this.renderWithSpinner()}
         </Content>
       </Container>
     )
@@ -35,7 +40,13 @@ const mapStateToProps = (state) => {
     return { ...value, id }
   })
 
-  return { grownodes }
+  const {wantedSubscriptions, subscriptions, connected} = state.mqtt
+  const mqttReady = connected && wantedSubscriptions.length === subscriptions.length
+
+  return {
+    grownodes,
+    mqttReady
+  }
 }
 
 export default connect(mapStateToProps, { fetchGrownodesAndConnectToMqtt })(GrownodesList)
