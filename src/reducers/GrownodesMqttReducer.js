@@ -13,13 +13,22 @@ export default (state = initialState, action) => {
       let subtopic = destinationName.substring(destinationName.indexOf('/') + 1)
       subtopic = subtopic.substring(subtopic.indexOf('/') + 1)
 
-      return {
+      let payloadToSave = stringToBoolOrString(payloadString) // cast to bool if 'true' || 'false', else return
+
+      let objToReturn = {
         ...state,
         [serial]: {
           ...state[serial],
-          [subtopic]: stringToBoolOrString(payloadString)
+          [subtopic]: payloadToSave
         }
       }
+
+      // Parse and save custom config too
+      if (subtopic === '$implementation/config') {
+        objToReturn[serial]['$implementation/config_obj'] = JSON.parse(payloadToSave)
+      }
+
+      return objToReturn
     default:
       return state
   }
