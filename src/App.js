@@ -6,33 +6,32 @@ import { persistStore } from 'redux-persist'
 import createFilter from 'redux-persist-transform-filter'
 import RouterComponent from './Router'
 import Store from './Store'
+// import {Base} from './utils'
 
 console.disableYellowBox = true
 
-
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { render: false }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     /* eslint-disable
     Use these lines to wipe the stored redux state on boot */
 
-    // persistStore(Store, {blacklist: ['mqtt'],storage: AsyncStorage,}).purge()
+    // persistStore(Store, {blacklist: ['mqtt'], storage: AsyncStorage }).purge()
     // Base.unauth()
 
     /* eslint-enable */
 
-
     // @todo refactor this
     persistStore(Store, {
-      blacklist: ['mqtt'],
+      whitelist: ['auth'],
       storage: AsyncStorage,
       transforms: [
-        createFilter('auth', ['user']),     // save only a subset of auth reducer
-      ],
+        createFilter('auth', ['user'])     // save only a subset of auth reducer
+      ]
     }, () => {
       // Finished hydrating store, can render router now
       this.setState({ render: true })
@@ -41,8 +40,7 @@ class App extends Component {
     console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
   }
 
-
-  render() {
+  render () {
     return (
       <Provider store={Store}>
         <RouterComponent render={this.state.render} />
