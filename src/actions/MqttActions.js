@@ -25,7 +25,7 @@ export function mqttSubscribe (topics) {
 
       const onFailure = ({ invocationContext }) => {
         dispatch({ type: MQTT_SUBSCRIBE_FAILED, payload: invocationContext.topic })
-        reject(MQTT_SUBSCRIBE_FAILED)
+        reject(new Error(MQTT_SUBSCRIBE_FAILED))
       }
 
       topics.forEach((topic) => {
@@ -59,7 +59,7 @@ export function mqttConnect () {
 
       const onConnectFail = () => {
         dispatch({ type: MQTT_DISCONNECTED })
-        reject('Failed to connect to MQTT')
+        reject(new Error('Failed to connect to MQTT'))
       }
 
       Mqtt.onConnectionLost = (responseObject) => {
