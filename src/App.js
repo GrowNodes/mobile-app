@@ -1,23 +1,49 @@
 import React, { Component } from 'react'
 // import { View, Text } from 'react-native'
-import devToolsEnhancer from 'remote-redux-devtools'
+import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import ReduxThunk from 'redux-thunk'
-import rootReducer from './reducers'
-import Router from './Router'
+import { persistStore } from 'redux-persist'
+import createFilter from 'redux-persist-transform-filter'
+import RouterComponent from './Router'
+import Store from './Store'
+// import {Base} from './utils'
+
+console.disableYellowBox = true
 
 class App extends Component {
-
-  componentWillMount() {
+  constructor (props) {
+    super(props)
+    this.state = { render: false }
   }
 
+  componentWillMount () {
+    /* eslint-disable
+    Use these lines to wipe the stored redux state on boot */
 
-  render() {
-    const store = createStore(rootReducer, devToolsEnhancer(), applyMiddleware(ReduxThunk))
+    // persistStore(Store, {blacklist: ['mqtt'], storage: AsyncStorage }).purge()
+    // Base.unauth()
+
+    /* eslint-enable */
+
+    // @todo refactor this
+    persistStore(Store, {
+      whitelist: ['auth'],
+      storage: AsyncStorage,
+      transforms: [
+        createFilter('auth', ['user'])     // save only a subset of auth reducer
+      ]
+    }, () => {
+      // Finished hydrating store, can render router now
+      this.setState({ render: true })
+    })
+
+    console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
+  }
+
+  render () {
     return (
-      <Provider store={store}>
-        <Router />
+      <Provider store={Store}>
+        <RouterComponent render={this.state.render} />
       </Provider>
     )
   }

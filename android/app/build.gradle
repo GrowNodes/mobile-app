@@ -96,6 +96,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("gn-release.keystore")
+            storePassword "grownodes"
+            keyAlias "gn-release"
+            keyPassword "grownodes"
+        }
+    }
     splits {
         abi {
             reset()
@@ -106,6 +114,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

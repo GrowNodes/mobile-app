@@ -1,4 +1,4 @@
-// import Moment from 'moment';
+// import Moment from 'moment'
 //
 // export const formatNodeSettings = (cylce_obj) => {
 //     var obj_to_push = _.cloneDeep(cylce_obj)
@@ -20,3 +20,12 @@
 // }
 
 export * from './Base'
+export * from './Mqtt'
+
+export const stringToBoolOrString = (string) => {
+  if (string === 'true' || string === 'false') {
+    return string === 'true'
+  }
+
+  return string
+}
