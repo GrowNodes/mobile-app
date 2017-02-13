@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 // import { View, Text } from 'react-native'
+
+import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm'
+
 import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
@@ -14,6 +17,28 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = { render: false }
+  }
+
+  componentDidMount () {
+    FCM.requestPermissions() // for iOS
+    FCM.getFCMToken().then(token => {
+      // store fcm token in your server
+    })
+
+    this.notificationListener = FCM.on(FCMEvent.Notification, (notif) => {
+      console.log(notif)
+      alert('got something!')
+      if (notif.local_notification) {
+        alert('is local!')
+      }
+      if (notif.opened_from_tray) {
+        alert('is tray!')
+      }
+    })
+    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
+      console.log('fcm token', token)
+            // fcm token may not be available on first load, catch it here
+    })
   }
 
   componentWillMount () {

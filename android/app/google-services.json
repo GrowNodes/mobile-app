@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "527579000683",
+    "firebase_url": "https://grownodes.firebaseio.com",
+    "project_id": "grownodes",
+    "storage_bucket": "grownodes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527579000683:android:44c8dd5b1dc8a17f",
+        "android_client_info": {
+          "package_name": "com.grownodes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527579000683-srjb2g280cbbbvihksafeunt4ou2codq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT9G8em0AvawZROc39pYiQwZ8WMgTJd6g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
