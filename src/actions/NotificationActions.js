@@ -3,10 +3,10 @@ import { Base } from '../utils'
 export const saveFCMToken = (token) => {
   return (dispatch, getState) => {
     const uid = getState().auth.user.uid
-    console.log(uid)
-    return Base.update(`users/${uid}/fcm_tokens/${token}`, {
+    return Base.update(`fcm_tokens/${token}`, {
       data: {
-        registered: new Date()
+        uid,
+        updated: new Date()
       }
     })
     .then(() => {
@@ -15,5 +15,11 @@ export const saveFCMToken = (token) => {
     .catch(() => {
       console.log('it didnt work')
     })
+  }
+}
+
+export const removeFCMToken = (token) => {
+  return (dispatch) => {
+    return Base.remove(`fcm_tokens/${token}`)
   }
 }

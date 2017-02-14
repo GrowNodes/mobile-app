@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 // import { View, Text } from 'react-native'
-
 import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType} from 'react-native-fcm'
 
 import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 import createFilter from 'redux-persist-transform-filter'
+import { Base } from './utils'
 import RouterComponent from './Router'
 import Store from './Store'
+import { saveFCMToken, removeFCMToken } from './actions'
 // import {Base} from './utils'
 
 console.disableYellowBox = true
@@ -21,10 +22,8 @@ class App extends Component {
 
   componentDidMount () {
     FCM.requestPermissions() // for iOS
-    FCM.getFCMToken().then(token => {
-      // store fcm token in your server
-    })
 
+    /* global alert */
     this.notificationListener = FCM.on(FCMEvent.Notification, (notif) => {
       console.log(notif)
       alert('got something!')
@@ -60,6 +59,16 @@ class App extends Component {
     }, () => {
       // Finished hydrating store, can render router now
       this.setState({ render: true })
+      // Listen for user
+      Base.auth().onAuthStateChanged((user) => {
+        FCM.getFCMToken().then(token => {
+          if (user) {
+            Store.dispatch(saveFCMToken(token))
+          } else {
+            Store.dispatch(removeFCMToken(token))
+          }
+        })
+      })
     })
 
     console.info('"Possible unhandled promise rejection warning" is coming from devToolsEnhancer, ignore it!')
