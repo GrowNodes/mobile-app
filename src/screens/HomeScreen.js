@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
+import { Container, Content, Card, CardItem, Body, Text, Button } from 'native-base'
+import { connect } from 'react-redux'
+import {logoutUser} from '../actions'
 
 class HomeScreen extends Component {
+  handleLogoutButton () {
+    this.props.logoutUser()
+  }
+
   render () {
     return (
       <Container>
@@ -21,10 +27,17 @@ class HomeScreen extends Component {
                 </Text>
               </Body>
             </CardItem>
+            <CardItem>
+              <Body>
+                <Button onPress={this.handleLogoutButton.bind(this)}>
+                  <Text>Logout</Text>
+                </Button>
+              </Body>
+            </CardItem>
           </Card>
         </Content>
       </Container>
     )
   }
 }
-export default HomeScreen
+export default connect(null, {logoutUser})(HomeScreen)
