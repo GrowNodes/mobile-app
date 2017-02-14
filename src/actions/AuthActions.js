@@ -1,5 +1,7 @@
 import { Actions } from 'react-native-router-flux'
 import { Base } from '../utils'
+import FCM from 'react-native-fcm'
+import { removeFCMToken } from './NotificationActions'
 
 export const EMAIL_SET_STATE = 'email_changed'
 export const PASSWORD_SET_STATE = 'pw_changed'
@@ -38,7 +40,14 @@ export const loginUserWithCreds = ({ email, password }) => {
 }
 
 export const logoutUser = () => {
-  Base.unauth()
-  Actions.auth({ type: 'reset' })
-  return { type: LOGOUT_USER }
+  return dispatch => {
+    return FCM.getFCMToken().then(token => {
+      dispatch(removeFCMToken(token))
+      .then(() => {
+        Base.unauth()
+        Actions.auth({ type: 'reset' })
+        dispatch({ type: LOGOUT_USER })
+      })
+    })
+  }
 }
