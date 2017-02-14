@@ -5,6 +5,7 @@ export * from './AuthActions'
 export * from './GrownodesActions'
 export * from './MqttActions'
 export * from './GrownodeTodoListActions'
+export * from './NotificationActions'
 
 export function fetchGrownodesAndConnectToMqtt () {
   return (dispatch, getState) => {
