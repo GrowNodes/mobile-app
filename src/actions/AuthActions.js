@@ -38,6 +38,7 @@ export const loginUserWithCreds = ({ email, password }) => {
 }
 
 export const logoutUser = () => {
+  Base.unauth()
   Actions.auth({ type: 'reset' })
   return { type: LOGOUT_USER }
 }
