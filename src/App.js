@@ -9,7 +9,7 @@ import createFilter from 'redux-persist-transform-filter'
 import { Base } from './utils'
 import RouterComponent from './Router'
 import Store from './Store'
-import { saveFCMToken, removeFCMToken } from './actions'
+import { saveFCMToken } from './actions'
 // import {Base} from './utils'
 
 console.disableYellowBox = true
@@ -64,9 +64,7 @@ class App extends Component {
         FCM.getFCMToken().then(token => {
           if (user) {
             Store.dispatch(saveFCMToken(token))
-          } else {
-            Store.dispatch(removeFCMToken(token))
-          }
+          } // can't remove FCM token here as the user is not logged in
         })
       })
     })

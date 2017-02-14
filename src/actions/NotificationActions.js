@@ -9,12 +9,6 @@ export const saveFCMToken = (token) => {
         updated: new Date()
       }
     })
-    .then(() => {
-      console.log('it worked')
-    })
-    .catch(() => {
-      console.log('it didnt work')
-    })
   }
 }
 
