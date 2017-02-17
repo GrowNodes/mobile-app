@@ -95,7 +95,7 @@ class GrownodeControl extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   grownode: {
-    ...state.grownodes[ownProps.selectedGrownodeId],
+    ...state.grownodes.data[ownProps.selectedGrownodeId],
     id: ownProps.selectedGrownodeId
   },
   grownodeMqtt: state.grownodesMqtt[ownProps.selectedGrownodeId]

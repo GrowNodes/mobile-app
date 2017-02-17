@@ -50,7 +50,7 @@ class GrownodeTodoListItemScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const todoList = state.grownodes[ownProps.selectedGrownodeId].todo_list || {}
+  const todoList = state.grownodes.data[ownProps.selectedGrownodeId].todo_list || {}
   const todoItem = todoList[ownProps.selectedGrownodeTodoId] || {}
 
   return {

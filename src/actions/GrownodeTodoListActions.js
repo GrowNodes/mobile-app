@@ -10,7 +10,7 @@ export const GrownodeTodoListItemSetComplete = (GrownodeId, GrownodeTodoItemId) 
 
     return Base.update(`grownodes/${GrownodeId}/todos_complete/${GrownodeTodoItemId}`, {
       data: {
-        ...getState().grownodes[GrownodeId].todo_list[GrownodeTodoItemId],
+        ...getState().grownodes.data[GrownodeId].todo_list[GrownodeTodoItemId],
         completed_at: new Date()
       }
     })

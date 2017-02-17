@@ -30,11 +30,12 @@ export const grownodesSync = () => {
   return (dispatch, getState) => {
     const { user } = getState().auth
 
-    Base.database().ref(`grownodes`)
-      .orderByChild('owner_uid').equalTo(user.uid)
-      .on('value', (snapshot) => {
-        dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
-      })
+    const grownodesFirebaseRef = Base.database().ref(`grownodes`).orderByChild('owner_uid').equalTo(user.uid)
+
+    console.log(grownodesFirebaseRef)
+    grownodesFirebaseRef.on('value', (snapshot) => {
+      dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
+    })
 
     dispatch({ type: GROWNODES_SYNCING })
     return Promise.resolve()

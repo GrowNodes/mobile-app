@@ -13,7 +13,7 @@ export function fetchGrownodesAndConnectToMqtt () {
     .then(() => dispatch(grownodesSync()))
     .then(() => dispatch(mqttConnect()))
     .then(() => {
-      const serials = Object.keys(getState().grownodes)
+      const serials = Object.keys(getState().grownodes.data)
       const topics = serials.map((serial) => {
         return `nodes/${serial}/#`
       })

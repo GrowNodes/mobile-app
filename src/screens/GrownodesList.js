@@ -36,7 +36,7 @@ class GrownodesList extends Component {
 const mapStateToProps = (state) => {
   // Convert adsfasdf: {foo:'bar'} to [{foo:'bar', id: adsfasdf}]
   // equiv. to asArray in rebase?
-  const grownodes = _.map(state.grownodes, (value, id) => {
+  const grownodes = _.map(state.grownodes.data, (value, id) => {
     return { ...value, id }
   })
 
