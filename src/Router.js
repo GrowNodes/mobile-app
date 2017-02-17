@@ -14,18 +14,11 @@ import Shop from './screens/Shop'
 import GrownodeControl from './screens/GrownodeControl'
 import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
 import GrownodeGrowChanger from './screens/GrownodeGrowChanger'
-
+import DebugScreen from './screens/DebugScreen'
 const RouterWithRedux = connect()(Router)
 
-const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
-  const style = {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // shadowColor: null,
-    // shadowOffset: null,
-    // shadowOpacity: null,
-    // shadowRadius: null,
-  }
+const getSceneStyle = (props, computedProps) => {
+  let style = {}
 
   // Fix navbar overlap see
   // https://github.com/aksonov/react-native-router-flux/issues/103#issuecomment-218375308
@@ -53,7 +46,7 @@ class RouterComponent extends Component {
   createScenes () {
     return Actions.create(
       // We are optimistically assuming any persisted user is valid
-      // and setting the initial scene to "main".
+      // and setting the initial scene accordingly.
       // Firebase will verify auth later asyncly (see App.js)
 
       // Scenes read from top down
@@ -89,6 +82,12 @@ class RouterComponent extends Component {
             key='Shop'
             component={Shop}
             title='Shop'
+            icon={TabIcon}
+          />
+          <Scene
+            key='DebugScreen'
+            component={DebugScreen}
+            title='Debug'
             icon={TabIcon}
           />
         </Scene>
