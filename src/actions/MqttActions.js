@@ -55,7 +55,11 @@ export function mqttSend (topic, body) {
 }
 
 export function mqttConnect () {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    if (getState().mqtt.connected) {
+      return Promise.resolve(MQTT_CONNECTED)
+    }
+
     dispatch({ type: MQTT_CONNECTING })
 
     return new Promise((resolve, reject) => {
