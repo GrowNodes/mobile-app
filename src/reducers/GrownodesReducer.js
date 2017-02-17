@@ -1,11 +1,16 @@
-import { GROWNODES_FETCH_SUCCESS } from '../actions/GrownodesActions'
+import { GROWNODES_FETCH_SUCCESS, GROWNODES_SYNCING } from '../actions/GrownodesActions'
 
-const initialState = {}
+const initialState = {
+  data: {},
+  firebaseSyncRef: null
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GROWNODES_FETCH_SUCCESS:
       return { ...state, data: action.payload }
+    case GROWNODES_SYNCING:
+      return { ...state, firebaseSyncRef: action.payload }
     default:
       return state
   }

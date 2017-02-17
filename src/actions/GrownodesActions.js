@@ -28,16 +28,20 @@ export function grownodesFetch () {
 
 export const grownodesSync = () => {
   return (dispatch, getState) => {
+    if (getState().grownodes.firebaseSyncRef !== null) {
+      // If firebaseSyncRef is !null, we are already synced to Firebase
+      return Promise.resolve()
+    }
+
     const { user } = getState().auth
 
     const grownodesFirebaseRef = Base.database().ref(`grownodes`).orderByChild('owner_uid').equalTo(user.uid)
 
-    console.log(grownodesFirebaseRef)
     grownodesFirebaseRef.on('value', (snapshot) => {
       dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
     })
 
-    dispatch({ type: GROWNODES_SYNCING })
+    dispatch({ type: GROWNODES_SYNCING, payload: grownodesFirebaseRef })
     return Promise.resolve()
   }
 }
