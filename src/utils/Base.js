@@ -5,5 +5,5 @@ export const Base = Rebase.createClass({
   authDomain: 'grownodes.firebaseapp.com',
   databaseURL: 'https://grownodes.firebaseio.com',
   storageBucket: 'grownodes.appspot.com',
-  messagingSenderId: '527579000683',
+  messagingSenderId: '527579000683'
 })

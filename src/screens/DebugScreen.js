@@ -15,7 +15,7 @@ class DebugScreen extends Component {
               <Text>{this.props.mqtt.connected ? 'Connected' : 'Disconnected'}</Text>
             </CardItem>
             <CardItem>
-              <Text>Subscribed to {JSON.stringify[this.props.mqtt.subscriptions] || 'none'}</Text>
+              <Text>Subscribed to {JSON.stringify(this.props.mqtt.subscriptions)}</Text>
             </CardItem>
           </Card>
           <Card>
