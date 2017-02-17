@@ -29,6 +29,14 @@ class DebugScreen extends Component {
               <Text>Subscribed to {JSON.stringify[this.props.mqtt.subscriptions] || 'none'}</Text>
             </CardItem>
           </Card>
+          <Card>
+            <CardItem>
+              <H1>Firebase</H1>
+            </CardItem>
+            <CardItem>
+              <Text>{this.props.firebaseConnected ? 'Connected' : 'Disconnected'}</Text>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
     )
@@ -37,7 +45,8 @@ class DebugScreen extends Component {
 
 const mapStateToProps = state => ({
   mqtt: state.mqtt,
-  auth: state.auth
+  auth: state.auth,
+  firebaseConnected: state.firebaseStatus.connected
 })
 
 export default connect(mapStateToProps)(DebugScreen)
