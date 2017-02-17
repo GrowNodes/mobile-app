@@ -41,7 +41,7 @@ export const grownodesSync = () => {
       dispatch({ type: GROWNODES_FETCH_SUCCESS, payload: snapshot.val() })
     })
 
-    dispatch({ type: GROWNODES_SYNCING, payload: grownodesFirebaseRef })
+    dispatch({ type: GROWNODES_SYNCING, payload: 'grownodesFirebaseRef' }) // unquote if we actually need the ref
     return Promise.resolve()
   }
 }
