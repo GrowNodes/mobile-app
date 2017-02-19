@@ -5,6 +5,7 @@ import { isSsidAGrownode } from '../utils'
 export const DETECT_GROWNODE_SSID_STARTED = 'searching wifi ssids for grownode (android only)'
 export const DETECT_GROWNODE_SSID_STOPPED = 'stopped searching wifi ssids for grownode (android only)'
 export const DETECTED_GROWNODE_SSID = 'found grownode in scanned wifi ssids (android only)'
+export const FETCHED_GROWNODE_NETWORKS = 'fetched networks from grownode'
 
 export const detectGrownode = () => {
   return (dispatch, getState) => {
@@ -42,18 +43,39 @@ export const connectToDetectedGrownode = () => {
 
       const connectToWifi = () => {
         console.log('connecting to', grownodeSsid)
-        rnaw.findAndConnect(grownodeSsid, '', () => { })
-        setTimeout(() => {
-          rnaw.getSSID((ssid) => {
-            console.log(ssid)
-            if (ssid !== grownodeSsid) {
-              connectToWifi()
-            }
-          })
-        }, 5000)
+        rnaw.findAndConnect(grownodeSsid, '', (found) => {
+          if (found) {
+            setTimeout(() => {
+              fetch('http://192.168.123.1/heart', {
+                method: 'get'
+              }).then((response) => {
+                resolve()
+                console.log(response.status)
+              }).catch(() => {
+                connectToWifi()
+              })
+            }, 5000)
+          } else {
+            connectToWifi()
+          }
+        })
       }
-
+      rnaw.disconnect()
       connectToWifi()
+    })
+  }
+}
+
+export const fetchNetworksFromGrownode = () => {
+  return (dispatch) => {
+    fetch('http://192.168.123.1/networks', {
+      method: 'get'
+    }).then((response) => {
+      return response.json()
+    }).then((networksObj) => {
+      dispatch({ type: FETCHED_GROWNODE_NETWORKS, payload: networksObj.networks })
+    }).catch(() => {
+      // setTimeout(() => { connectToWifi() }, 5000)
     })
   }
 }
@@ -83,9 +105,9 @@ export const provisionGrownode = () => {
         }
       })
     }).then((response) => {
-      return response.blob()
-    }).then((blob) => {
-      console.log(blob)
+      return response.text()
+    }).then(text => {
+      console.log(text)
     }).catch((err) => {
       console.log(err)
     })

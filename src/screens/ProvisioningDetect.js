@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { detectGrownode, connectToDetectedGrownode, provisionGrownode } from '../actions'
+import { detectGrownode, connectToDetectedGrownode, provisionGrownode, fetchNetworksFromGrownode } from '../actions'
 import { Container, Content, Card, CardItem, Button, Text, H1, Form, Item, Input } from 'native-base'
 
 class ProvisioningDetect extends Component {
@@ -9,7 +9,7 @@ class ProvisioningDetect extends Component {
   }
 
   handleConnectButton () {
-    this.props.connectToDetectedGrownode()
+    this.props.connectToDetectedGrownode().then(this.props.fetchNetworksFromGrownode)
   }
 
   handleUploadSettings () {
@@ -42,6 +42,18 @@ class ProvisioningDetect extends Component {
               </Button>
             </CardItem>
           </Card>
+          <Card>
+            <CardItem>
+              <H1>Scanned networks</H1>
+            </CardItem>
+            {this.props.scannedNetworks.map(network => {
+              return (
+                <CardItem>
+                  <Text>{network.rssi} {network.encryption} | {network.ssid}</Text>
+                </CardItem>
+              )
+            })}
+          </Card>
           <Form>
             <Item>
               <Input placeholder='Grownode Nickname' />
@@ -61,7 +73,8 @@ class ProvisioningDetect extends Component {
 
 const mapStateToProps = state => ({
   shouldDetectGrownode: state.provisioning.shouldDetectGrownode,
-  detectedGrownodeId: state.provisioning.detectedGrownodeId
+  detectedGrownodeId: state.provisioning.detectedGrownodeId,
+  scannedNetworks: state.provisioning.scannedNetworks
 })
 
-export default connect(mapStateToProps, { detectGrownode, connectToDetectedGrownode, provisionGrownode })(ProvisioningDetect)
+export default connect(mapStateToProps, { detectGrownode, connectToDetectedGrownode, provisionGrownode, fetchNetworksFromGrownode })(ProvisioningDetect)
