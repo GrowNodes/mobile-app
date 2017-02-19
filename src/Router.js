@@ -15,6 +15,8 @@ import GrownodeControl from './screens/GrownodeControl'
 import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
 import GrownodeGrowChanger from './screens/GrownodeGrowChanger'
 import DebugScreen from './screens/DebugScreen'
+import ProvisioningDetect from './screens/ProvisioningDetect'
+
 const RouterWithRedux = connect()(Router)
 
 const getSceneStyle = (props, computedProps) => {
@@ -65,7 +67,7 @@ class RouterComponent extends Component {
               component={GrownodesList}
               title='Your Grow Nodes'
               rightTitle='Add'
-              onRight={() => alert('Doesnt work yet')}
+              onRight={() => Actions.provisioning()}
             />
             <Scene key='control' component={GrownodeControl} title='Control Grow Node' />
             <Scene key='GrownodeGrowChanger' component={GrownodeGrowChanger} title='Change Grow Settings' />
@@ -90,6 +92,10 @@ class RouterComponent extends Component {
             title='Debug'
             icon={TabIcon}
           />
+        </Scene>
+
+        <Scene key='provisioning'>
+          <Scene key='step1' component={ProvisioningDetect} />
         </Scene>
 
       </Scene>,
