@@ -4,12 +4,10 @@ import { detectGrownode, connectToDetectedGrownode, provisionGrownode, fetchNetw
 import { Container, Content, Card, CardItem, Button, Text, H1, Form, Item, Input } from 'native-base'
 
 class ProvisioningDetect extends Component {
-  handleDetectingButton () {
+  handleStartButton () {
     this.props.detectGrownode()
-  }
-
-  handleConnectButton () {
-    this.props.connectToDetectedGrownode().then(this.props.fetchNetworksFromGrownode)
+    .then(this.props.connectToDetectedGrownode)
+    .then(this.props.fetchNetworksFromGrownode)
   }
 
   handleUploadSettings () {
@@ -21,25 +19,18 @@ class ProvisioningDetect extends Component {
       <Container>
         <Content>
           <Card>
-            <Button onPress={this.handleDetectingButton.bind(this)}>
-              <Text>{this.props.shouldDetectGrownode ? 'Stop' : 'Detect' }</Text>
+            <Button onPress={this.handleStartButton.bind(this)}>
+              <Text>Start</Text>
             </Button>
             <CardItem>
               <H1>
-                Detected grownode
+                {this.props.detectedGrownodeId}
               </H1>
             </CardItem>
             <CardItem>
               <Text>
-                {this.props.detectedGrownodeId}
+                {this.props.statusText}
               </Text>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem>
-              <Button onPress={this.handleConnectButton.bind(this)}>
-                <Text>Connect to {this.props.detectedGrownodeId}</Text>
-              </Button>
             </CardItem>
           </Card>
           <Card>
@@ -74,7 +65,8 @@ class ProvisioningDetect extends Component {
 const mapStateToProps = state => ({
   shouldDetectGrownode: state.provisioning.shouldDetectGrownode,
   detectedGrownodeId: state.provisioning.detectedGrownodeId,
-  scannedNetworks: state.provisioning.scannedNetworks
+  scannedNetworks: state.provisioning.scannedNetworks,
+  statusText: state.provisioning.statusText
 })
 
 export default connect(mapStateToProps, { detectGrownode, connectToDetectedGrownode, provisionGrownode, fetchNetworksFromGrownode })(ProvisioningDetect)

@@ -5,6 +5,11 @@ import { isSsidAGrownode } from '../utils'
 export const DETECT_GROWNODE_SSID_STARTED = 'searching wifi ssids for grownode (android only)'
 export const DETECT_GROWNODE_SSID_STOPPED = 'stopped searching wifi ssids for grownode (android only)'
 export const DETECTED_GROWNODE_SSID = 'found grownode in scanned wifi ssids (android only)'
+
+export const CONNECTING_TO_GROWNODE = 'connecting to grownode setup AP'
+export const CONNECTED_TO_GROWNODE = 'connected to grownode setup AP'
+
+export const FETCHING_GROWNODE_NETWORKS = 'fetching networks from grownode'
 export const FETCHED_GROWNODE_NETWORKS = 'fetched networks from grownode'
 
 export const detectGrownode = () => {
@@ -38,6 +43,7 @@ export const detectGrownode = () => {
 
 export const connectToDetectedGrownode = () => {
   return (dispatch, getState) => {
+    dispatch({ type: CONNECTING_TO_GROWNODE })
     return new Promise((resolve, reject) => {
       const grownodeSsid = getState().provisioning.detectedGrownodeId
 
@@ -49,8 +55,8 @@ export const connectToDetectedGrownode = () => {
               fetch('http://192.168.123.1/heart', {
                 method: 'get'
               }).then((response) => {
+                dispatch({ type: CONNECTED_TO_GROWNODE })
                 resolve()
-                console.log(response.status)
               }).catch(() => {
                 connectToWifi()
               })
@@ -68,6 +74,7 @@ export const connectToDetectedGrownode = () => {
 
 export const fetchNetworksFromGrownode = () => {
   return (dispatch) => {
+    dispatch({ type: FETCHING_GROWNODE_NETWORKS })
     fetch('http://192.168.123.1/networks', {
       method: 'get'
     }).then((response) => {
