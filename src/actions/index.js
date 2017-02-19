@@ -7,6 +7,8 @@ export * from './MqttActions'
 export * from './GrownodeTodoListActions'
 export * from './NotificationActions'
 export * from './FirebaseStatusActions'
+export * from './ProvisioningActions'
+
 export function fetchGrownodesAndConnectToMqtt () {
   return (dispatch, getState) => {
     return dispatch(grownodesFetch())

@@ -21,6 +21,7 @@
 
 export * from './Base'
 export * from './Mqtt'
+export * from './Ssid'
 
 export const stringToBoolOrString = (string) => {
   if (string === 'true' || string === 'false') {

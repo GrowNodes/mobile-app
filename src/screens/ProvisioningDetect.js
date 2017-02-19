@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { detectGrownodeSsid } from '../actions'
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
-var wifi = require('react-native-android-wifi')
 
 class ProvisioningDetect extends Component {
   componentDidMount () {
-    wifi.connectionStatus((isConnected) => {
-      if (isConnected) {
-        console.log('is connected')
-      } else {
-        console.log('is not connected')
-      }
-    })
+    this.props.detectGrownodeSsid()
   }
 
   render () {
@@ -19,11 +14,14 @@ class ProvisioningDetect extends Component {
         <Content>
           <Card>
             <CardItem>
-              <Body>
-                <Text>
-                  Detecting grow node...
-                </Text>
-              </Body>
+              <Text>
+                Detecting grow node...
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                {this.props.detectedGrowNodeId}
+              </Text>
             </CardItem>
           </Card>
         </Content>
@@ -31,4 +29,9 @@ class ProvisioningDetect extends Component {
     )
   }
 }
-export default ProvisioningDetect
+
+const mapStateToProps = state => ({
+  detectedGrowNodeId: state.provisioning.detectedGrowNodeId
+})
+
+export default connect(mapStateToProps, { detectGrownodeSsid })(ProvisioningDetect)

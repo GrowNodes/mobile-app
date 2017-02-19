@@ -5,6 +5,7 @@ import GrownodesReducer from './GrownodesReducer'
 import GrownodesMqttReducer from './GrownodesMqttReducer'
 import MqttReducer from './MqttReducer'
 import FirebaseStatusReducer from './FirebaseStatusReducer'
+import ProvisioningReducer from './ProvisioningReducer'
 
 export default combineReducers({
   router: RouterReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   mqtt: MqttReducer,
   firebaseStatus: FirebaseStatusReducer,
   grownodes: GrownodesReducer,
-  grownodesMqtt: GrownodesMqttReducer
+  grownodesMqtt: GrownodesMqttReducer,
+  provisioning: ProvisioningReducer
 })
