@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { detectGrownode } from '../actions'
-import { Container, Content, Card, CardItem, Button, Text, H1 } from 'native-base'
+import { detectGrownode, connectToDetectedGrownode, provisionGrownode } from '../actions'
+import { Container, Content, Card, CardItem, Button, Text, H1, Form, Item, Input } from 'native-base'
 
 class ProvisioningDetect extends Component {
   handleDetectingButton () {
     this.props.detectGrownode()
+  }
+
+  handleConnectButton () {
+    this.props.connectToDetectedGrownode()
+  }
+
+  handleUploadSettings () {
+    this.props.provisionGrownode()
   }
 
   render () {
@@ -14,7 +22,7 @@ class ProvisioningDetect extends Component {
         <Content>
           <Card>
             <Button onPress={this.handleDetectingButton.bind(this)}>
-              <Text>{this.props.shouldDetectGrownode ? 'stop detecting' : 'Start detecting' }</Text>
+              <Text>{this.props.shouldDetectGrownode ? 'Stop' : 'Detect' }</Text>
             </Button>
             <CardItem>
               <H1>
@@ -27,6 +35,24 @@ class ProvisioningDetect extends Component {
               </Text>
             </CardItem>
           </Card>
+          <Card>
+            <CardItem>
+              <Button onPress={this.handleConnectButton.bind(this)}>
+                <Text>Connect to {this.props.detectedGrownodeId}</Text>
+              </Button>
+            </CardItem>
+          </Card>
+          <Form>
+            <Item>
+              <Input placeholder='Grownode Nickname' />
+            </Item>
+            <Item last>
+              <Input placeholder='psk' />
+            </Item>
+            <Button onPress={this.handleUploadSettings.bind(this)}>
+              <Text>Upload settings</Text>
+            </Button>
+          </Form>
         </Content>
       </Container>
     )
@@ -38,4 +64,4 @@ const mapStateToProps = state => ({
   detectedGrownodeId: state.provisioning.detectedGrownodeId
 })
 
-export default connect(mapStateToProps, { detectGrownode })(ProvisioningDetect)
+export default connect(mapStateToProps, { detectGrownode, connectToDetectedGrownode, provisionGrownode })(ProvisioningDetect)

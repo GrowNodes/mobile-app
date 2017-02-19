@@ -35,23 +35,54 @@ export const detectGrownode = () => {
   }
 }
 
-export const detectGrownodeAndIfAndroidConnect = () => {
+export const connectToDetectedGrownode = () => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      // clearInterval(getState().provisioning.detectGrownodeRef)
-      // dispatch({ type: DETECT_GROWNODE_SSID_STOPPED })
-      dispatch(detectGrownode()).then(ssid => {
-        console.log('found', ssid)
-        rnaw.findAndConnect(ssid, '', (found) => {
+      const ssid = getState().provisioning.detectedGrownodeId
+      console.log(ssid)
+      rnaw.findAndConnect(ssid, '', (found) => {
+        if (found) {
           // found returns true if ssid is in the range
-          if (found) {
-            console.log('wifi is in range')
-          } else {
-            console.log('wifi is not in range')
-          }
-        })
+          // it does not mean it's connected tho!
+          resolve()
+        } else {
+          reject(Error('wifi is not in range'))
+        }
       })
-      //
+    })
+  }
+}
+
+export const provisionGrownode = () => {
+  return dispatch => {
+    fetch('http://homie.config/config', {
+      method: 'put',
+      body: JSON.stringify({
+        'name': 'some nickname test',
+        'wifi': {
+          'ssid': 'PENIS',
+          'password': '12345678'
+        },
+        'mqtt': {
+          'host': 'demo.grownodes.com',
+          'port': 1883,
+          'base_topic': 'nodes/',
+          'auth': false
+        },
+        'ota': {
+          'enabled': false
+        },
+        'settings': {
+          'light_off_at': 22,
+          'light_on_at': 5
+        }
+      })
+    }).then((response) => {
+      return response.blob()
+    }).then((blob) => {
+      console.log(blob)
+    }).catch((err) => {
+      console.log(err)
     })
   }
 }
