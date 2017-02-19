@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { detectGrownodeSsidAndIfAndroidConnect } from '../actions'
-import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
+import { detectGrownode } from '../actions'
+import { Container, Content, Card, CardItem, Button, Text, H1 } from 'native-base'
 
 class ProvisioningDetect extends Component {
-  componentDidMount () {
-    this.props.detectGrownodeSsidAndIfAndroidConnect()
+  handleDetectingButton () {
+    this.props.detectGrownode()
   }
 
   render () {
@@ -13,14 +13,17 @@ class ProvisioningDetect extends Component {
       <Container>
         <Content>
           <Card>
+            <Button onPress={this.handleDetectingButton.bind(this)}>
+              <Text>{this.props.shouldDetectGrownode ? 'stop detecting' : 'Start detecting' }</Text>
+            </Button>
             <CardItem>
-              <Text>
-                Detecting grow node...
-              </Text>
+              <H1>
+                Detected grownode
+              </H1>
             </CardItem>
             <CardItem>
               <Text>
-                {this.props.detectedGrowNodeId}
+                {this.props.detectedGrownodeId}
               </Text>
             </CardItem>
           </Card>
@@ -31,7 +34,8 @@ class ProvisioningDetect extends Component {
 }
 
 const mapStateToProps = state => ({
-  detectedGrowNodeId: state.provisioning.detectedGrowNodeId
+  shouldDetectGrownode: state.provisioning.shouldDetectGrownode,
+  detectedGrownodeId: state.provisioning.detectedGrownodeId
 })
 
-export default connect(mapStateToProps, { detectGrownodeSsidAndIfAndroidConnect })(ProvisioningDetect)
+export default connect(mapStateToProps, { detectGrownode })(ProvisioningDetect)
