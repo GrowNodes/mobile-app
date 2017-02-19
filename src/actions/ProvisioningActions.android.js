@@ -1,5 +1,6 @@
 import rnwc from 'react-native-wifi-checker' // use this one to scan
 import WifiManager from 'react-native-wifi-manager'
+import { NetInfo } from 'react-native'
 
 import { isSsidAGrownode } from '../utils'
 
@@ -49,28 +50,22 @@ export const connectToDetectedGrownode = () => {
       const grownodeSsid = getState().provisioning.detectedGrownodeId
       // Connect to grownode ssid
       WifiManager.connect(grownodeSsid, '')
-      // recursive function, checks wifi connection and grownode heartbeat
-      const checkConnection = () => {
-        console.log('checking')
-        WifiManager.status((status) => {
-          if (status !== 'CONNECTED') {
-            setTimeout(() => { checkConnection() }, 1000)
-            return
-          }
-          console.log('connected to something, checking')
-          fetch('http://192.168.123.1/heart', {
-            method: 'get'
-          }).then((response) => {
-            dispatch({ type: CONNECTED_TO_GROWNODE })
-            resolve()
-          }).catch(() => {
-              // this should never happen unless we connected to the wrong network
-              // or if grownode is not responding
-            checkConnection()
-          })
+
+      NetInfo.addEventListener('change', (connectionInfo) => {
+        if (connectionInfo !== 'WIFI') {
+          return
+        }
+        console.log('connected to something, checking')
+        fetch('http://192.168.123.1/heart', {
+          method: 'get'
+        }).then((response) => {
+          dispatch({ type: CONNECTED_TO_GROWNODE })
+          resolve()
+        }).catch(() => {
+            // this should never happen unless we connected to the wrong network
+            // or if grownode is not responding
         })
-      }
-      checkConnection()
+      })
     })
   }
 }
