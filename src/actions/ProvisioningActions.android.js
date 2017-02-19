@@ -38,17 +38,22 @@ export const detectGrownode = () => {
 export const connectToDetectedGrownode = () => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      const ssid = getState().provisioning.detectedGrownodeId
-      console.log(ssid)
-      rnaw.findAndConnect(ssid, '', (found) => {
-        if (found) {
-          // found returns true if ssid is in the range
-          // it does not mean it's connected tho!
-          resolve()
-        } else {
-          reject(Error('wifi is not in range'))
-        }
-      })
+      const grownodeSsid = getState().provisioning.detectedGrownodeId
+
+      const connectToWifi = () => {
+        console.log('connecting to', grownodeSsid)
+        rnaw.findAndConnect(grownodeSsid, '', () => { })
+        setTimeout(() => {
+          rnaw.getSSID((ssid) => {
+            console.log(ssid)
+            if (ssid !== grownodeSsid) {
+              connectToWifi()
+            }
+          })
+        }, 5000)
+      }
+
+      connectToWifi()
     })
   }
 }
