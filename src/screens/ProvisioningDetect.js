@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { detectGrownodeSsid } from '../actions'
+import { detectGrownodeSsidAndIfAndroidConnect } from '../actions'
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base'
 
 class ProvisioningDetect extends Component {
   componentDidMount () {
-    this.props.detectGrownodeSsid()
+    this.props.detectGrownodeSsidAndIfAndroidConnect()
   }
 
   render () {
@@ -34,4 +34,4 @@ const mapStateToProps = state => ({
   detectedGrowNodeId: state.provisioning.detectedGrowNodeId
 })
 
-export default connect(mapStateToProps, { detectGrownodeSsid })(ProvisioningDetect)
+export default connect(mapStateToProps, { detectGrownodeSsidAndIfAndroidConnect })(ProvisioningDetect)
