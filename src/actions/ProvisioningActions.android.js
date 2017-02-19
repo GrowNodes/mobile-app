@@ -1,5 +1,6 @@
 import rnwc from 'react-native-wifi-checker' // use this one to scan
-import rnaw from 'react-native-android-wifi'  // use this for everything else
+import WifiManager from 'react-native-wifi-manager'
+
 import { isSsidAGrownode } from '../utils'
 
 export const DETECT_GROWNODE_SSID_STARTED = 'searching wifi ssids for grownode (android only)'
@@ -15,7 +16,6 @@ export const FETCHED_GROWNODE_NETWORKS = 'fetched networks from grownode'
 export const detectGrownode = () => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      rnaw.setEnabled(true)
       dispatch({ type: DETECT_GROWNODE_SSID_STARTED })
 
       const detectLoop = () => {
@@ -45,29 +45,32 @@ export const connectToDetectedGrownode = () => {
   return (dispatch, getState) => {
     dispatch({ type: CONNECTING_TO_GROWNODE })
     return new Promise((resolve, reject) => {
+      // Get grownode ssid
       const grownodeSsid = getState().provisioning.detectedGrownodeId
-
-      const connectToWifi = () => {
-        console.log('connecting to', grownodeSsid)
-        rnaw.findAndConnect(grownodeSsid, '', (found) => {
-          if (found) {
-            setTimeout(() => {
-              fetch('http://192.168.123.1/heart', {
-                method: 'get'
-              }).then((response) => {
-                dispatch({ type: CONNECTED_TO_GROWNODE })
-                resolve()
-              }).catch(() => {
-                connectToWifi()
-              })
-            }, 5000)
-          } else {
-            connectToWifi()
+      // Connect to grownode ssid
+      WifiManager.connect(grownodeSsid, '')
+      // recursive function, checks wifi connection and grownode heartbeat
+      const checkConnection = () => {
+        console.log('checking')
+        WifiManager.status((status) => {
+          if (status !== 'CONNECTED') {
+            setTimeout(() => { checkConnection() }, 1000)
+            return
           }
+          console.log('connected to something, checking')
+          fetch('http://192.168.123.1/heart', {
+            method: 'get'
+          }).then((response) => {
+            dispatch({ type: CONNECTED_TO_GROWNODE })
+            resolve()
+          }).catch(() => {
+              // this should never happen unless we connected to the wrong network
+              // or if grownode is not responding
+            checkConnection()
+          })
         })
       }
-      rnaw.disconnect()
-      connectToWifi()
+      checkConnection()
     })
   }
 }

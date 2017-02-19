@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.evollu.react.fcm.FIRMessagingPackage;
-import com.devstepbcn.wifi.AndroidWifiPackage;
+import com.skierkowski.WifiManager.*;
 import com.rayglaeske.react.wifi.WifiCheckerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -28,9 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FIRMessagingPackage(),
-            new AndroidWifiPackage(),
-            new WifiCheckerPackage()
+          new FIRMessagingPackage(),
+          new WifiManager(),
+          new WifiCheckerPackage()
       );
     }
   };
