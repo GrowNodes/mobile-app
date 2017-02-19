@@ -5,18 +5,22 @@ import {
 } from '../actions'
 
 const initialState = {
-  detectedGrowNodeId: null,
-  detectGrownodeSsidRef: null
+  detectedGrownodeId: null,
+  shouldDetectGrownode: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case DETECT_GROWNODE_SSID_STARTED:
-      return { detectGrownodeSsidRef: action.payload }
+      return { ...state, shouldDetectGrownode: true }
     case DETECTED_GROWNODE_SSID:
-      return { detectedGrowNodeId: action.payload }
+      return {
+        ...state,
+        detectedGrownodeId: action.payload,
+        shouldDetectGrownode: false
+      }
     case DETECT_GROWNODE_SSID_STOPPED:
-      return { detectGrownodeSsidRef: null }
+      return { ...state, shouldDetectGrownode: false }
     default:
       return state
   }
