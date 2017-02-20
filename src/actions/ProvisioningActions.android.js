@@ -1,5 +1,7 @@
 import rnwc from 'react-native-wifi-checker' // use this one to scan
 import WifiManager from 'react-native-wifi-manager'
+// the above 2 are android only
+import NetworkInfo from 'react-native-network-info'
 import { NetInfo } from 'react-native'
 
 import { isSsidAGrownode } from '../utils'
@@ -51,21 +53,22 @@ export const connectToDetectedGrownode = () => {
       // Connect to grownode ssid
       WifiManager.connect(grownodeSsid, '')
 
-      NetInfo.addEventListener('change', (connectionInfo) => {
+      const handleNetworkChange = (connectionInfo) => {
         if (connectionInfo !== 'WIFI') {
           return
         }
-        console.log('connected to something, checking')
-        fetch('http://192.168.123.1/heart', {
-          method: 'get'
-        }).then((response) => {
-          dispatch({ type: CONNECTED_TO_GROWNODE })
-          resolve()
-        }).catch(() => {
-            // this should never happen unless we connected to the wrong network
-            // or if grownode is not responding
+        NetworkInfo.getSSID(ssid => {
+          if (ssid === grownodeSsid) {
+            dispatch({ type: CONNECTED_TO_GROWNODE })
+            NetInfo.removeEventListener('change', handleNetworkChange)
+            resolve()
+            return
+          }
+          console.log('connected to wrong AP, trying again')
+          WifiManager.connect(grownodeSsid, '')
         })
-      })
+      }
+      NetInfo.addEventListener('change', handleNetworkChange)
     })
   }
 }
