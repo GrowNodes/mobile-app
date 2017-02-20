@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { detectGrownode, connectToDetectedGrownode, provisionGrownode, fetchNetworksFromGrownode } from '../actions'
 import { Container, Content, Card, CardItem, Button, Text, H1, Form, Item, Input } from 'native-base'
+import WifiApList from '../components/WifiApList'
 
 class ProvisioningDetect extends Component {
   handleStartButton () {
@@ -37,13 +38,7 @@ class ProvisioningDetect extends Component {
             <CardItem>
               <H1>Scanned networks</H1>
             </CardItem>
-            {this.props.scannedNetworks.map(network => {
-              return (
-                <CardItem>
-                  <Text>{network.rssi} {network.encryption} | {network.ssid}</Text>
-                </CardItem>
-              )
-            })}
+            <WifiApList networks={this.props.scannedNetworks} />
           </Card>
           <Form>
             <Item>

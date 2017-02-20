@@ -16,6 +16,7 @@ import GrownodeTodoListItemScreen from './screens/GrownodeTodoListItemScreen'
 import GrownodeGrowChanger from './screens/GrownodeGrowChanger'
 import DebugScreen from './screens/DebugScreen'
 import ProvisioningDetect from './screens/ProvisioningDetect'
+import ProvisioningWifiPsk from './screens/ProvisioningWifiPsk'
 
 const RouterWithRedux = connect()(Router)
 
@@ -96,6 +97,7 @@ class RouterComponent extends Component {
 
         <Scene key='provisioning'>
           <Scene key='step1' component={ProvisioningDetect} />
+          <Scene key='ProvisioningWifiPsk' component={ProvisioningWifiPsk} />
         </Scene>
 
       </Scene>,
