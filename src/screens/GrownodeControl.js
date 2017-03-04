@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import { TouchableOpacity } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
@@ -45,6 +46,11 @@ class GrownodeControl extends Component {
                 Air Humidity: {grownodeMqtt['air_sensor/humidity']}%
               </Text>
             </CardItem>
+            <CardItem>
+              <Text>
+                Water Temperature: {grownodeMqtt['water_temp/temperature']} °F
+              </Text>
+            </CardItem>
           </Card>
 
           <Card>
@@ -84,6 +90,21 @@ class GrownodeControl extends Component {
             <CardItem>
               <Text>
                   Wifi Connection: {grownodeMqtt['$online'] ? 'online' : 'offline'}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  System time: {grownodeMqtt['current_time/time_string']}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  Uptime: {moment.duration(parseInt(grownodeMqtt['$stats/uptime']), 'seconds').humanize()}
+              </Text>
+            </CardItem>
+            <CardItem>
+              <Text>
+                  Wifi signal: {grownodeMqtt['$stats/signal']}
               </Text>
             </CardItem>
           </Card>
