@@ -1,48 +1,50 @@
 {
-  "name": "mobileapp",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "build-android": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
-    "test": "jest",
-    "lint": "eslint src/** --fix"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "moment": "^2.17.1",
-    "native-base": "^2.0.4",
-    "re-base": "^2.5.2",
-    "react": "~15.4.0",
-    "react-native": "0.41.2",
-    "react-native-fcm": "^6.0.2",
-    "react-native-router-flux": "^3.37.0",
-    "react-redux": "^5.0.2",
-    "react_native_mqtt": "^1.1.4",
-    "redux": "^3.6.0",
-    "redux-persist": "^4.3.0",
-    "redux-persist-transform-filter": "0.0.6",
-    "redux-thunk": "^2.2.0",
-    "remote-redux-devtools": "0.5.0",
-    "uuid": "^3.0.1"
-  },
-  "devDependencies": {
-    "babel-jest": "18.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "eslint": "3.15.0",
-    "eslint-config-standard": "^7.0.0-beta.0",
-    "eslint-config-standard-react": "^4.2.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "3.0.2",
-    "eslint-plugin-promise": "^3.4.1",
-    "eslint-plugin-react": "^6.9.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "jest": "18.1.0",
-    "react-test-renderer": "~15.4.0"
-  },
-  "jest": {
-    "preset": "react-native"
-  }
+    "name": "mobileapp",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "android": "node node_modules/react-native/local-cli/cli.js run-android",
+        "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+        "build-android": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
+        "test": "jest",
+        "lint": "eslint src/** --fix",
+        "postinstall": "webpack node_modules/mqtt/mqtt.js node_modules/mqtt/client.js --output-library mqtt --output-library-target commonjs2"
+    },
+    "dependencies": {
+        "lodash": "^4.17.4",
+        "moment": "^2.17.1",
+        "mqtt": "^2.5.0",
+        "native-base": "^2.0.4",
+        "re-base": "^2.5.2",
+        "react": "~15.4.0",
+        "react-native": "0.41.2",
+        "react-native-fcm": "^6.0.2",
+        "react-native-router-flux": "^3.37.0",
+        "react-redux": "^5.0.2",
+        "redux": "^3.6.0",
+        "redux-persist": "^4.3.0",
+        "redux-persist-transform-filter": "0.0.6",
+        "redux-thunk": "^2.2.0",
+        "remote-redux-devtools": "0.5.0",
+        "uuid": "^3.0.1"
+    },
+    "devDependencies": {
+        "babel-jest": "18.0.0",
+        "babel-preset-react-native": "1.9.1",
+        "eslint": "3.15.0",
+        "eslint-config-standard": "^7.0.0-beta.0",
+        "eslint-config-standard-react": "^4.2.0",
+        "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-jsx-a11y": "3.0.2",
+        "eslint-plugin-promise": "^3.4.1",
+        "eslint-plugin-react": "^6.9.0",
+        "eslint-plugin-standard": "^2.0.1",
+        "jest": "18.1.0",
+        "react-test-renderer": "~15.4.0",
+        "webpack": "^2.3.2"
+    },
+    "jest": {
+        "preset": "react-native"
+    }
 }
