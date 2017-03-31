@@ -1,5 +1,5 @@
 import { grownodesFetch, grownodesSync } from './GrownodesActions'
-import { mqttConnect, mqttSubscribe } from './MqttActions'
+import Mqtt from '../utils/Mqtt'
 
 export * from './AuthActions'
 export * from './GrownodesActions'
@@ -7,17 +7,17 @@ export * from './MqttActions'
 export * from './GrownodeTodoListActions'
 export * from './NotificationActions'
 export * from './FirebaseStatusActions'
+
 export function fetchGrownodesAndConnectToMqtt () {
   return (dispatch, getState) => {
     return dispatch(grownodesFetch())
     .then(() => dispatch(grownodesSync()))
-    .then(() => dispatch(mqttConnect()))
     .then(() => {
       const serials = Object.keys(getState().grownodes.data)
       const topics = serials.map((serial) => {
         return `nodes/${serial}/#`
       })
-      return dispatch(mqttSubscribe(topics))
+      Mqtt.subscribeToTopics(topics)
     })
     // .catch(error => {
     //   console.warn('fetchGrownodesAndConnectToMqtt', error)

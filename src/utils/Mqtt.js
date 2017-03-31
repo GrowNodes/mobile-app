@@ -9,12 +9,10 @@ import {
 
 class Mqtt {
   constructor () {
-    console.log('construtro')
     // var parent = this
-    this.client = mqtt.connect(`mqtt://iot.grownodes.com:9001`)
+    this.client = mqtt.connect(`ws://iot.grownodes.com:9001`)
 
     this.client.on('connect', function () {
-      console.log('connect')
       store.dispatch(mqttConnected())
     })
 
@@ -22,15 +20,22 @@ class Mqtt {
       store.dispatch(mqttMessageArrived(topic, payload.toString()))
     })
 
-    const dispatchDisconnected = function () {
-      console.log('dispatching disconnected')
+    this.client.on('offline', () => {
+      console.log('MQTT connection offline')
       store.dispatch(mqttDisconnected())
-    }
-
-    this.client.on('offline', dispatchDisconnected)
-    this.client.on('error', dispatchDisconnected)
-    this.client.on('close', dispatchDisconnected)
-    this.client.on('reconnect', dispatchDisconnected)
+    })
+    this.client.on('error', () => {
+      console.log('MQTT connection error')
+      store.dispatch(mqttDisconnected())
+    })
+    this.client.on('close', () => {
+      console.log('MQTT connection close')
+      store.dispatch(mqttDisconnected())
+    })
+    this.client.on('reconnect', () => {
+      console.log('MQTT connection reconnect')
+      store.dispatch(mqttDisconnected())
+    })
   }
 
   sendMessage (topic, message) {
@@ -40,16 +45,15 @@ class Mqtt {
 
   subscribeToTopics (topics) {
     for (var i = topics.length - 1; i >= 0; i--) {
-      console.log('subscribing to')
-      this.client.subscribe('nodes/' + topics[i] + '/#')
+      console.log(`subscribing to ${topics[i]}`)
+      this.client.subscribe(topics[i])
       store.dispatch(mqttSubscribed(topics[i]))
     }
   }
 
-  close () {
-    this.client.end()
-    store.dispatch(mqttDisconnected())
-  }
+  // close () {
+  //   this.client.end()
+  // }
 }
 
 // ES6 Singleton pattern
