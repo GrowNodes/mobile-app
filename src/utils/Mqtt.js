@@ -4,7 +4,8 @@ import {
   mqttConnected,
   mqttMessageArrived,
   mqttDisconnected,
-  mqttSubscribed
+  mqttSubscribed,
+  mqttSubscribedDone
 } from '../actions/MqttActions'
 
 class Mqtt {
@@ -43,12 +44,30 @@ class Mqtt {
     console.log('sending mqtt message', topic, message)
   }
 
+  subscribeToTopic (topic) {
+    return new Promise((resolve, reject) => {
+      this.client.subscribe(topic, {qos: 0}, (err, granted) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        store.dispatch(mqttSubscribed(topic))
+        resolve()
+      })
+    })
+  }
+
   subscribeToTopics (topics) {
-    for (var i = topics.length - 1; i >= 0; i--) {
-      console.log(`subscribing to ${topics[i]}`)
-      this.client.subscribe(topics[i])
-      store.dispatch(mqttSubscribed(topics[i]))
+    let topicsIterationStack = []
+    for (var i = 0; i < topics.length; i++) {
+      let p = this.subscribeToTopic(topics[i])
+      topicsIterationStack.push(p)
     }
+
+    return Promise.all(topicsIterationStack).then(() => {
+      store.dispatch(mqttSubscribedDone())
+      console.log('apparently subscribed to all topics...')
+    })
   }
 
   // close () {

@@ -11,7 +11,7 @@ class GrownodesList extends Component {
   }
 
   renderWithSpinner () {
-    if (!this.props.mqttConnected) {
+    if (!this.props.allSubscribed) {
       return <Spinner />
     }
     return <List
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 
   return {
     grownodes,
-    mqttConnected: state.mqtt.connected
+    allSubscribed: state.mqtt.allSubscribed
   }
 }
 

@@ -1,6 +1,7 @@
 export const MQTT_CONNECTED = 'MQTT_CONNECTED'
 export const MQTT_DISCONNECTED = 'MQTT_DISCONNECTED'
 export const MQTT_SUBSCRIBED = 'Subscribed to MQTT topic'
+export const MQTT_SUBSCRIBED_ALL = 'Subscribed to all MQTT topics'
 export const MQTT_RECEIVED = 'MQTT_RECEIVED'
 
 export function mqttConnected () {
@@ -17,6 +18,12 @@ export function mqttSubscribed (topic) {
   return {
     type: MQTT_SUBSCRIBED,
     payload: topic
+  }
+}
+
+export function mqttSubscribedDone () {
+  return {
+    type: MQTT_SUBSCRIBED_ALL
   }
 }
 

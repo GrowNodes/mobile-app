@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { TouchableOpacity } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { Container, Content, Card, CardItem, Body, Text, H1, H2, H3 } from 'native-base'
+import { Container, Content, Card, CardItem, Body, Text, H1 } from 'native-base'
 import GrownodeTodoList from '../components/GrownodeTodoList'
+import GrownodeWaterPumpOverrideSwitch from '../components/GrownodeWaterPumpOverrideSwitch'
 
 class GrownodeControl extends Component {
   render () {
@@ -73,6 +73,10 @@ class GrownodeControl extends Component {
                 <Text>
                     render switchers here
                 </Text>
+                <GrownodeWaterPumpOverrideSwitch
+                  grownodeMqtt={grownodeMqtt}
+                  selectedGrownodeId={selectedGrownodeId}
+                />
               </Body>
             </CardItem>
           </Card>
